@@ -1,63 +1,41 @@
-# Having an Online Presence: Tools for Reproducible and Rapid Dissemination of Research / Avoir une présence en ligne: Outils pour la diffusion rapide et reproductible de la recherche
+# Avoir une présence en ligne: Outils pour la diffusion rapide et reproductible de la recherche
 
-A workshop presented by [Sahir Bhatnagar](http://sahirbhatnagar.com/) (McGill University) at the [6th Annual Canadian Statistics Student Conference - Montr&eacute;al, QC](https://ssc.ca/en/meeting/sixth-annual-canadian-statistics-student-conference)
-
-
-## Details
-
-**Date**: Saturday, June 2, 2018  
-**Location**: [McGill University](http://www.mcgill.ca/)  
-**Slides**: https://sahirbhatnagar.com/CSSC2018/  
-**Material**: Click on the `Download ZIP` button on this page, or [fork it](https://help.github.com/articles/fork-a-repo/), or [clone it](http://stackoverflow.com/questions/651038/how-do-you-clone-a-git-repository-into-a-specific-folder)  
+Un atelier présenté par [Sahir Bhatnagar](http://sahirbhatnagar.com/) (McGill University) à [R à Québec 2019](http://raquebec.ulaval.ca/).
 
 
-## Abstract
+## Détails
 
-With the ever increasing size of data and complexity of methods required to analyze them, the reproducibility of results is necessary to ensure a high quality of scientific research. At the same time, there has been a shift in the way research is disseminated. Preprint servers, blogs, GitHub and Twitter are free platforms that significantly reduce publication time enabling researchers to rapidly share ideas, generate discussion, publish code and promote their work. In this workshop I will introduce the essential tools of a reproducible workflow. Starting from a raw dataset, you will learn how to structure your analysis scripts, create dynamic documents using Rmarkdown and keep track of the changes to the analysis through version control with Git. You will then create a website and publish your results online in the form of a blog post. This workshop will be 100% interactive.
+**Date**: Mardi le 14 mai, 2019
+**Lieu**: [Salle 3425, au 3e étage du Pavillon Desjardins de l'Université Laval](http://raquebec.ulaval.ca/2019/#_lieu)  
+**Matériels**: https://sahirbhatnagar.com/raqc/  
 
------
 
+## Apperçu
 
 Avec la taille toujours grandissante des données et la complexité des méthodes nécessaires pour les analyser, la reproductibilité des résultats est nécessaire pour assurer une qualité élevée de recherche scientifique. Parallèlement, la façon dont la recherche est diffusée a également changé. Les serveurs de prépublication électronique, les blogs, GitHub et Twitter sont des plateformes gratuites qui réduisent considérablement le temps de publication, permettant aux chercheurs de partager rapidement des idées, de générer des discussions, de publier du code et de promouvoir leur travail. Dans cet atelier, je présenterai les outils essentiels d'un plan de travail reproductible. À partir d'un ensemble de données brutes, vous apprendrez à structurer vos scripts d'analyse, à créer des documents dynamiques à l'aide de Rmarkdown et à suivre les changements apportés à l'analyse, grâce au contrôle de version avec Git. Par la suite, vous créerai un site Web et publierai vos résultats en ligne sous la forme d'un article de blog. Cet atelier sera 100% interactif. Les participants sont encouragés à apporter leurs propres ordinateurs.
 
-## Requirements
 
-Participants must bring their own laptops, with the following programs and packages installed (all are free):
+## Comment vous préparer pour l'atelier
 
-* [R (version ≥ 3.4.1)](http://cran.r-project.org/)
-* [RStudio (version ≥ 1.1.442)](http://www.rstudio.com/products/rstudio/download/preview/)  
+Vous devez apporter votre propre ordinateur portable. Il faut aussi installer les logiciels suivants (gratuit)
+
+* [R (version ≥ 3.6.0)](http://cran.r-project.org/)
+* [RStudio (version ≥ 1.2.1335)](https://www.rstudio.com/products/rstudio/download/#download)  
 * [Git](https://git-scm.com/downloads)
-* [Sign up for a GitHub Account](https://github.com/)
+* [Un compte GitHub](https://github.com/)
 * [GitKraken](https://www.gitkraken.com/)  
-* Run the following commands in `R` for required packages:
+* Les packages `R` suivants:
 
 ```R
 install.packages("pacman")
-pacman::p_load(knitr, rmarkdown, pander, ggplot2, cowplot)
+pacman::p_load(knitr, rmarkdown, pander, ggplot2, cowplot, drake, glmnet, dplyr, data.table)
 pacman::p_load_gh('rstudio/blogdown')
 blogdown::install_hugo(force=TRUE)
+pacman::p_load_gh("juba/rmdformats")
+pacman::p_load_gh('ropensci/drake')
 ```
 
-
-----
-
-## Reproducible Examples
-
-All the examples in this repository are reproducible. To compile please follow these instructions:
-
-1. For a given directory, open the associated `.Rproj` file in RStudio
-2. Open the `.Rnw` corresponding to the name of the folder
-3. In RStudio, make sure files are weaved using `knitr` (Tools -> Global Options -> Sweave -> Weave .Rnw files using: select knitr in the dropdown menu)
-4. In RStudio, click on `Compile PDF` or in the `R` console enter `knitr::knit2pdf("*.Rnw")` where * is the name of the `.Rnw` to compile
-
-----
-
-## How Does it work?
-
-* In each of the folders there is a `packages.R` file, which automatically tests for required packages, and install them if they are missing from your library
-* There is no need to set any working directories, since you have opened the `.Rproj` file
-* To be able to compile the [slides](https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/slides), you need to have a Perl interpreter installed. If you do not have one, simply comment out `knit_hooks$set(crop = hook_pdfcrop)` in the setup chunk of the [`mcgill-knitr.Rnw`](https://github.com/sahirbhatnagar/knitr-tutorial/blob/master/slides/mcgill-knitr.Rnw) file
-
+* Si vous n'êtes pas familier avec Git et Github, je vous recommande fortement de consulter mon tutorial [GitHub for Data Scientists without the Terminal](http://sahirbhatnagar.com/git4ds/)  
 
 
 

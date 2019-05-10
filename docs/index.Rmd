@@ -1,6 +1,6 @@
 ---
-title: "CSSC 2018 Workshop"
-# subtitle: "Atelier en Calcul Statistiques / Statistical Computing Workshop CSSC 2018"
+title: "R à Québec 2019"
+subtitle: "Avoir une présence en ligne: Outils pour la diffusion rapide et reproductible de la recherche"
 author: "Sahir Rai Bhatnagar (\\@syfi_24)"
 date: "`r Sys.Date()`"
 output:
@@ -43,15 +43,11 @@ if (!exists("project.data.loaded")) {
 ```
 
 
-# Before We Get Started...
+# Avant de commencer...
 
-Please go to the following site to vote:
+Veuillez compléter le sondage:
 
-<span style="font-size:larger;">http://etc.ch/qJqU</span>
-
-```{r, out.width='500px', out.height='500px', fig.fullwidth=TRUE, echo=FALSE}
-knitr::include_graphics(path = "assets/img/qrcode.png")
-```
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfPnBqqlMGPE6wPa_YLJvDNPfNOmSXsYofJMsSTtWt7ROD48w/viewform?embedded=true" width="640" height="2463" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 
 
 # Requirements
@@ -67,8 +63,11 @@ knitr::include_graphics(path = "assets/img/qrcode.png")
 
 ```R
 install.packages("pacman")
-pacman::p_load(knitr, rmarkdown, bookdown, data.table, sjPlot, car)
+pacman::p_load(knitr, rmarkdown, pander, ggplot2, cowplot, drake, glmnet, dplyr, data.table)
 pacman::p_load_gh('rstudio/blogdown')
+blogdown::install_hugo(force=TRUE)
+pacman::p_load_gh("juba/rmdformats")
+pacman::p_load_gh('ropensci/drake')
 ```
 
 
