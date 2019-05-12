@@ -5,7 +5,7 @@ Un atelier présenté par [Sahir Bhatnagar](http://sahirbhatnagar.com/) (McGill 
 
 ## Détails
 
-**Date**: Mardi le 14 mai, 2019
+**Date**: Mardi le 14 mai, 2019  
 **Lieu**: [Salle 3425, au 3e étage du Pavillon Desjardins de l'Université Laval](http://raquebec.ulaval.ca/2019/#_lieu)  
 **Matériels**: https://sahirbhatnagar.com/raqc/  
 
