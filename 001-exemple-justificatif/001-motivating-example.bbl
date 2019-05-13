@@ -1,0 +1,51 @@
+\begin{thebibliography}{6}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Johnson(1996)]{johnson1996fitting}
+Roger~W Johnson.
+\newblock Fitting percentage of body fat to simple body measurements.
+\newblock \emph{Journal of Statistics Education}, 4\penalty0 (1):\penalty0
+  265--266, 1996.
+
+\bibitem[original~by Gareth~Ambler and modified~by Axel~Benner(2015)]{mfp}
+original~by Gareth~Ambler and modified~by Axel~Benner.
+\newblock \emph{mfp: Multivariable Fractional Polynomials}, 2015.
+\newblock URL \url{http://CRAN.R-project.org/package=mfp}.
+\newblock R package version 1.5.1.
+
+\bibitem[Penrose et~al.(1985)Penrose, Nelson, and
+  Fisher]{penrose1985generalized}
+Keith~W Penrose, AG~Nelson, and A~Garth Fisher.
+\newblock Generalized body composition prediction equation for men using simple
+  measurement techniques.
+\newblock \emph{Medicine \& Science in Sports \& Exercise}, 17\penalty0
+  (2):\penalty0 189, 1985.
+
+\bibitem[Xie(2013)]{k2}
+Yihui Xie.
+\newblock \emph{Dynamic Documents with {R} and knitr}.
+\newblock Chapman and Hall/CRC, Boca Raton, Florida, 2013.
+\newblock URL \url{http://yihui.name/knitr/}.
+\newblock ISBN 978-1482203530.
+
+\bibitem[Xie(2014)]{k3}
+Yihui Xie.
+\newblock knitr: A comprehensive tool for reproducible research in {R}.
+\newblock In Victoria Stodden, Friedrich Leisch, and Roger~D. Peng, editors,
+  \emph{Implementing Reproducible Computational Research}. Chapman and
+  Hall/CRC, 2014.
+\newblock URL \url{http://www.crcpress.com/product/isbn/9781466561595}.
+\newblock ISBN 978-1466561595.
+
+\bibitem[Xie(2015)]{k1}
+Yihui Xie.
+\newblock \emph{knitr: A General-Purpose Package for Dynamic Report Generation
+  in R}, 2015.
+\newblock URL \url{http://yihui.name/knitr/}.
+\newblock R package version 1.10.5.
+
+\end{thebibliography}

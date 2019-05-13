@@ -33,6 +33,8 @@ pacman::p_load_gh('rstudio/blogdown')
 blogdown::install_hugo(force=TRUE)
 pacman::p_load_gh("juba/rmdformats")
 pacman::p_load_gh('ropensci/drake')
+pacman::p_load('tinytex')
+tinytex::install_tinytex()
 ```
 
 * Si vous n'êtes pas familier avec Git et Github, je vous recommande fortement de consulter mon tutorial [GitHub for Data Scientists without the Terminal](http://sahirbhatnagar.com/git4ds/)  
