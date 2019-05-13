@@ -1,0 +1,643 @@
+%\documentclass[10pt,handout]{beamer}
+\documentclass[10pt]{beamer}
+\usepackage{etex} % helps fix \newdimen error which is cause when ctable is loaded with other packages
+\usepackage{comment}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{url}
+\usepackage{color, colortbl}
+\usepackage{tikz}
+\usepackage{ctable}
+
+\usetikzlibrary{shapes.geometric, arrows,shapes.symbols,decorations.pathreplacing}
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30,text width=2.0cm]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill=blue!30,text width=1.5cm]
+\tikzstyle{process} = [rectangle, minimum width=1cm, minimum height=1cm, text centered, draw=black, fill=orange!30,text width=2cm]
+\tikzstyle{decision} = [diamond, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\tikzstyle{both} = [thick,<->,>=stealth, red]
+
+\tikzset{myshade/.style={minimum size=.4cm,shading=radial,inner color=white,outer color={#1!90!gray}}}
+\newcommand\mycirc[1][]{\tikz\node[circle,myshade=#1]{};}
+\newcommand\myrect[1][]{\tikz\node[rectangle,myshade=#1]{};}
+\newcommand\mystar[1][]{\tikz\node[star,star points=15,star point height=2pt,myshade=#1]{};}
+\newcommand\mydiamond[1][]{\tikz\node[diamond,myshade=#1]{};}
+\newcommand\myellipse[1][]{\tikz\node[ellipse,myshade=#1]{};}
+\newcommand\mykite[1][]{\tikz\node[kite,myshade=#1]{};}
+\newcommand\mydart[1][]{\tikz\node[dart,myshade=#1]{};}
+\newcommand\mycloud[1][]{\tikz\node[cloud,myshade=#1]{};}
+
+%\usepackage{subcaption}
+\usepackage{subfig}
+%\usepackage{caption}
+
+\mode<presentation>
+\usetheme{Hannover}
+\usecolortheme{rose}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{frametitle}[default][left]
+
+\usepackage{fontspec}
+%\setsansfont{Fira Sans}
+%\setmonofont{Fira Mono}
+\setsansfont[ItalicFont={Fira Sans Light Italic},BoldFont={Fira Sans},BoldItalicFont={Fira Sans Italic}]{Fira Sans Light}
+\setmonofont[BoldFont={Fira Mono Medium}]{Fira Mono}
+
+\usepackage[]{hyperref}
+\hypersetup{
+    unicode=false,          
+    pdftoolbar=true,        
+    pdfmenubar=true,        
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={Reproducible Research},    % title
+    pdfauthor={Sahir Rai Bhatnagar},     % author
+    pdfsubject={Subject},   % subject of the document
+    pdfcreator={Sahir Rai Bhatnagar},   % creator of the document
+    pdfproducer={Sahir Rai Bhatnagar}, % producer of the document
+    pdfkeywords={}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+    citecolor=blue,        % color of links to bibliography
+    filecolor=black,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
+\begin{document}
+
+
+<<setup, echo=FALSE,warning=FALSE,message=FALSE,cache=FALSE, results='hide'>>=
+library(knitr)
+options(width=60, digits=2)
+set.seed(45)
+opts_chunk$set(echo = FALSE, tidy = FALSE, cache = FALSE, warning = FALSE, message = FALSE, size = 'footnotesize')
+knit_hooks$set(crop = hook_pdfcrop)
+opts_template$set(
+    fig.large = list(fig.width = 7, fig.height = 5, fig.align = 'center', crop = TRUE, fig.pos = 'h'),
+    fig.small = list(fig.width = 6, fig.height = 4, fig.align = 'center', crop = TRUE, fig.pos = 'h'),
+    fig.full = list(fig.width = 8, fig.height = 6, fig.align = 'center', crop = TRUE, fig.pos = 'h')
+)
+knitr::read_chunk("slides-packages.R")
+@
+
+<<required-packages,echo=FALSE,warning=FALSE,message=FALSE>>=
+@
+
+\title[Outils pour la diffusion rapide et reproductible de la recherche]{Avoir une présence en ligne}
+\subtitle{Outils pour la diffusion rapide et reproductible de la recherche}
+
+\author[]{Sahir Rai Bhatnagar%
+\thanks{\href{https://github.com/sahirbhatnagar/raqc}{https://github.com/sahirbhatnagar/raqc}%
+}}
+
+\date{May 14, 2019}
+
+%\makebeamertitle
+
+\maketitle
+
+\begin{frame}{Remerciements}
+% \hspace*{-1.9cm}\parbox[t]{\textwidth}
+%\frametitle{Acknowledgements}
+\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+
+\column{.45\textwidth} % Left column and width
+
+\begin{itemize}
+%\scriptsize
+\item La comité organisateur
+\item Pierre Racine et Sophie Baillargeon
+\item Don Knuth (\TeX)
+\item Friedrich Leisch (Sweave)
+\item Yihui Xie (knitr)
+\item Vous
+\end{itemize}
+
+\column{.45\textwidth} % Right column and width
+\begin{figure}
+\includegraphics[width=1.0\columnwidth]{logo_r_a_quebec_2019_presente_par_ia_blanc.png}\\[5mm]
+\includegraphics[width=1.0\columnwidth]{ulaval-logo.jpg}
+%\includegraphics[width=0.7\columnwidth]{Logo-LUDMER.jpg}
+\end{figure}
+
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Avis \#1}
+\begin{itemize}
+	\item Ceci est une \textbf{introduction} au outils pour la recherche reproductible
+	\pause \item Le niveau de cet atelier est "intermédiaire" et suppose des connaissances de base en R ainsi que de l'environnement RStudio
+	%\pause \item On va faire beaucoup d'exercices
+	\pause \item N'h\'{e}sitez pas \`{a} posez des questions
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Avis \#2}
+\begin{figure}
+\includegraphics[width=1.0\columnwidth]{rstudio.png}\\[5mm]
+\includegraphics[width=0.2\columnwidth]{rlogo.png}\\[5mm]
+\includegraphics[width=0.2\columnwidth]{LaTeX_logo.png}
+\end{figure}
+
+\textit{Je n'ai aucune relation commerciale avec ces logiciels.}
+
+\end{frame}
+
+\begin{frame}{Avis \#3}
+
+\begin{itemize}
+\item Le mat\'{e}riel pour cet atelier est bas\'{e} sur plusieurs ressources 
+\item Voir ce lien pour une liste compl\`{e}te de r\'{e}f\'{e}rences: \href{https://github.com/sahirbhatnagar/raqc}{https://github.com/sahirbhatnagar/raqc}
+\item Une grande partie du contenu de ces diapositives est basée sur ces deux livres:
+\end{itemize}
+
+\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+\column{.45\textwidth} % Left column and width
+\begin{figure}
+\includegraphics[width=0.6\columnwidth]{yihui.png}
+\end{figure}
+
+\column{.45\textwidth} % Right column and width
+\begin{figure}
+\includegraphics[width=0.6\columnwidth]{blogdown.png}
+\end{figure}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}{Eat Your Own Dog Food}
+
+\begin{itemize}
+\item Ces diapositives sont reproductibles
+\item code: \href{https://github.com/sahirbhatnagar/raqc/tree/master/slides}{https://github.com/sahirbhatnagar/raqc/tree/master/slides}
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}{Le programme de l'atelier}
+\begin{itemize}
+\item \textbf{8h30 à 10h00}: Introduction aux raports reproductibles avec knitr et RMarkdown
+\item \textbf{10h00 à 10h30}: Pause
+\item \textbf{10h30 à 12h00}: 
+\item \textbf{13h30 à 15h00}: Créer un siteweb avec blogdown
+\item \textbf{15h00 à 15h30}: Pause
+\item \textbf{15h30 à 17h}: 
+\item \textbf{17h}: Fin de l'atelier
+\end{itemize}
+\end{frame}
+
+
+
+\section{Recherche Reproductible}
+
+\subsection{What?}
+
+\begin{frame}
+
+\frametitle{What is Science Anyway?}
+
+\pause
+\begin{block}{According to the American Physical Society:}
+\emph{Science is the systematic enterprise of gathering knowledge about the universe and organizing and condensing that knowledge into \textbf{testable} laws and theories. The \textbf{success and credibility of science} are anchored in the \textbf{willingness} of scientists to \textbf{expose their ideas} and results to \textbf{independent testing} and \textbf{replication} by other scientists}
+\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\frametitle{RR: A Minimum Standard to Verify Scientific Findings}
+
+\pause
+\begin{block}{Reproducible Research (RR) in Computational Sciences}
+\emph{The data and the code used to make a finding are available and they are sufficient for an independent researcher to recreate the finding}
+\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Why?}
+
+\begin{frame}
+\begin{tikzpicture}
+\scriptsize
+\node (expr) [startstop] {Why should we care about RR?};
+\node (science) [decision, right of=expr, xshift=2cm, yshift=1.5cm] {For Science};
+\draw [arrow] (expr) -- (science);
+\node (stan) [process, right of=science, xshift=3cm, yshift=2cm] {Standard to judge scientific claims};
+\node (dupli) [process, right of=science, xshift=3cm, yshift=0.5cm] {Avoid duplication};
+\node (know) [process, right of=science, xshift=3cm, yshift=-1cm] {Cumulative knowledge development};
+\draw [arrow] (science) -- (stan);
+\draw [arrow] (science) -- (dupli);
+\draw [arrow] (science) -- (know);
+\pause \node (you) [decision, right of=expr, xshift=2cm, yshift=-1.5cm] {For You};
+\draw [arrow] (expr) -- (you);
+\node (work) [process, right of=you, xshift=3cm, yshift=0.5cm] {Better work habits};
+\node (team) [process, right of=you, xshift=3cm, yshift=-0.7cm] {Better teamwork};
+\node (change) [process, right of=you, xshift=3cm, yshift=-1.9cm] {Changes are easier};
+\node (soft) [process, right of=you, xshift=3cm, yshift=-3.1cm] {Higher research impact};
+\draw [arrow] (you) -- (work);
+\draw [arrow] (you) -- (team);
+\draw [arrow] (you) -- (change);
+\draw [arrow] (you) -- (soft);
+\end{tikzpicture}
+\end{frame}
+
+
+\subsection{001-motivating-example}
+
+\begin{frame}{A Motivating Example}
+\textit{Demonstrate:} \href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/001-motivating-example}{001-motivating-example}\\
+
+\textit{Survey:}
+\href{https://www.surveymonkey.com/s/CDVXW3C}{https://www.surveymonkey.com/s/CDVXW3C}
+\end{frame}
+
+
+
+\section{Getting Started}
+
+\begin{frame}{Tools for Reproducible Research\footnote{\href{http://onepager.togaware.com/}{http://onepager.togaware.com/}}}
+
+
+\begin{block}{Free and Open Source Software}
+\begin{itemize}
+\item \texttt{RStudio}: Creating, managing, compiling documents
+\item \LaTeX: Markup language for typesetting a document
+\item \texttt{R}: Statistical analysis language
+\item \texttt{knitr}: Integrate \LaTeX and \texttt{R} code. Based on Prof. Friedrich Leisch's \href{https://www.statistik.lmu.de/~leisch/Sweave/}{\texttt{Sweave}}
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+\subsection{\LaTeX}
+
+\begin{frame}\frametitle{Comparison}
+\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+
+\column{.45\textwidth} % Left column and width
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=1, keepaspectratio]{./miktex}
+\caption{Comparison}
+\label{fig:word}
+\end{figure}
+
+\column{.5\textwidth} % Right column and width
+\begin{itemize}
+\item \LaTeX \, has a greater learning curve
+\item Many tasks are very tedious or impossible (most cases) to do in MS Word or Libre Office
+\end{itemize}
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}\frametitle{The Philosophy behind \LaTeX}
+\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+
+\column{.45\textwidth} % Left column and width
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.6, keepaspectratio]{./smith}
+\small
+\caption{Adam Smith, author of \textit{The Wealth of Nations} (1776), in which he conceptualizes the notion of the division of labour}
+\label{fig:smith}
+\end{figure}
+
+\column{.5\textwidth} % Right column and width
+\small
+\begin{block}{Division of Labour}
+Composition and logical structuring of text is the author's specific contribution to the production of a printed text. Matters such as the choice of the font family, should section headings be in bold face or small capitals? Should they be flush left or centered? Should the text be justified or not? Should the notes appear at the foot of the page or at the end? Should the text be set in one column or two? and so on, is the typesetter's business
+\end{block}
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}\frametitle{The Genius Behind \LaTeX}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4, keepaspectratio]{./don}
+\small
+\caption{The \TeX~project was started in 1978 by Donald Knuth (Stanford). He planned for 6 months, but it took him nearly 10 years to complete. Coined the term ``Literate programming'': mixture of code and text segments that are ``human'' readable. Recipient of the Turing Award (1974) and the Kyoto Prize (1996).}
+\label{fig:don}
+\end{figure}
+
+\end{frame}
+
+
+
+\subsection{RStudio}
+
+\begin{frame}\frametitle{Integrated Development Environment (IDE)}
+\pause
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.25, keepaspectratio]{./RStudio-Screenshot}
+\end{figure}
+\textit{Demonstrate:} Explore \texttt{RStudio} 
+\end{frame}
+
+
+\subsection{\texttt{knitr}}
+
+\begin{frame}{What \texttt{knitr} does}
+\textbf{\LaTeX} example:
+
+\begin{tikzpicture}
+\scriptsize
+\node (expr) [startstop] {Report.Rnw (contains both code and markup)};
+\node (science) [decision, below of=expr, xshift=0cm, yshift=-2cm] {Report.tex};
+\draw [arrow] (expr) -- node[anchor=east]{\texttt{knitr::knit('Report.Rnw')}} (science);
+\pause \node (pdf) [io, below of=science, xshift=0cm, yshift=-2cm] {Report.pdf};
+\draw [arrow] (science) -- node[anchor=east]{\texttt{latex2pdf('Report.tex')}} (pdf);
+\end{tikzpicture}
+\end{frame}
+
+
+\begin{frame}\frametitle{Compiling a \texttt{.Rnw} document}
+
+\begin{block}{The two steps on previous slide can be executed in one command:}
+\[ \textrm{\texttt{knitr::knit2pdf()}} \]
+\end{block}
+
+or in \texttt{RStudio}:
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5, keepaspectratio]{./Compile-pdf.jpg}
+\end{figure}
+%\textit{Demonstrate:} Explore \texttt{RStudio}, projects and \texttt{.Rprofile}
+\end{frame}
+
+\begin{frame}\frametitle{Incorporating \texttt{R} code}
+
+\begin{itemize}
+\item Insert \texttt{R} code in a \textbf{Code Chunk} starting with $$ << \quad >>= $$
+and ending with \begin{center}
+{@}
+\end{center}
+\end{itemize}
+
+In \texttt{RStudio}:
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35, keepaspectratio]{./sweave_chunk}
+\end{figure}
+%\textit{Demonstrate:} Explore \texttt{RStudio}, projects and \texttt{.Rprofile}
+\end{frame}
+
+\begin{frame}[fragile]{Example 1}
+<<out-first-code-chunk, echo=FALSE, comment=NA>>=
+cat(paste("<<example-code-chunk-name, echo=TRUE>>=","library(magrittr)","rnorm(50) %>% mean","@",sep="\n"))
+@
+produces
+<<echo=TRUE>>=
+library(magrittr)
+rnorm(50) %>% mean
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Example 2}
+<<out-first-code-chunk2, echo=FALSE, comment=NA>>=
+cat(paste("<<example-code-chunk-name2, echo=TRUE, tidy=TRUE>>=","for(i in 1:5){ (i+3) %>% print}","@",sep="\n"))
+@
+produces
+<<echo=TRUE, tidy=TRUE>>=
+for(i in 1:5){ (i+3) %>% print}
+@
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Example 2.2}
+<<out-first-code-chunk22, echo=FALSE, comment=NA>>=
+cat(paste("<<example-code-chunk-name3, echo=FALSE>>=","for(i in 1:5){ (i+3) %>% print}","@",sep="\n"))
+@
+produces
+<<echo=FALSE, tidy=TRUE>>=
+for(i in 1:5){ (i+3) %>% print}
+@
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Example 2.3}
+<<out-first-code-chunk23, echo=FALSE, comment=NA>>=
+cat(paste("<<example-code-chunk-name4, echo=FALSE, eval=FALSE>>=","for(i in 1:5){ (i+3) %>% print}","@",sep="\n"))
+@
+produces
+<<echo=FALSE, eval=FALSE, tidy=TRUE>>=
+for(i in 1:5){ (i+3) %>% print}
+@
+
+\textit{Demonstrate:} Try it yourself
+\end{frame}
+
+
+
+\begin{frame}[fragile]{\texttt{R} output within the text}
+\begin{itemize}
+\item Include \texttt{R} output within the text
+\item We can do that with ``S-expressions'' using the command \textbackslash \texttt{Sexpr}\{$\ldots$\}
+\end{itemize}
+\vspace{1cm}
+
+\textbf{Example:} \vspace{0.3cm}
+
+The iris dataset has \textbackslash \texttt{Sexpr}\{\texttt{nrow(iris)}\} rows and \textbackslash \texttt{Sexpr}\{\texttt{ncol(iris)}\} columns
+\vspace{0.5cm}
+
+produces \vspace{0.5cm}
+
+The iris dataset has \Sexpr{nrow(iris)} rows and \Sexpr{ncol(iris)} columns
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Include a Figure}
+\scriptsize
+<<out-first-code-chunk3, echo=FALSE, comment=NA>>=
+cat(paste("<<fig.ex, fig.cap='Linear Regression',fig.height=3,fig.width=3>>=","plot(mtcars[ , c('disp','mpg')])","lm(mpg ~ disp , data = mtcars) %>%", "abline(lwd=2)","@",sep="\n"))
+@
+<<slr7, fig.cap='Linear regression', echo=FALSE, fig.height=2.5,fig.width=4, fig.align='center', crop=TRUE>>=
+plot(mtcars[ , c("disp","mpg")])
+lm(mpg ~ disp , data = mtcars) %>% abline(lwd=2)
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Include a Table}
+\scriptsize
+<<out-first-code-chunk4, echo=FALSE, comment=NA>>=
+cat(paste("<<table.ex, results='asis'>>=","library(xtable)","iris[1:5,1:5] %>% ","xtable(caption='Sample of Iris data') %>%", "print(include.rownames=FALSE)","@",sep="\n"))
+@
+<<table-iris, results='asis'>>=
+iris[1:5,1:5] %>% xtable(caption='Sample of Iris data') %>% print(include.rownames=FALSE)
+@
+\end{frame}
+
+
+\begin{comment}
+\section{Details}
+
+\subsection{Code Chunks}
+
+\begin{frame}{A selection of \texttt{knitr} code chunk options}
+content...
+\end{frame}
+
+
+\begin{frame}{Set global chunk options}
+content...
+\end{frame}
+
+
+\begin{frame}{Option Aliases}
+see page 109 yihui
+\end{frame}
+
+
+\begin{frame}{Option Templates}
+see page 110 yihui
+\end{frame}
+
+\begin{frame}{Chunk References}
+see page 79 yihui
+\end{frame}
+
+
+\begin{frame}{Code in Appendix}
+see page 110 yihui
+\end{frame}
+
+
+
+\subsection{Hooks}
+\begin{frame}{A selection of \texttt{knitr} code chunk options}
+content...
+\end{frame}
+
+
+\subsection{Child Documents}
+\begin{frame}{A selection of \texttt{knitr} code chunk options}
+see 83
+\end{frame}
+
+
+
+\subsection{Custom Environments}
+\begin{frame}{Example Environment}
+see 120
+\end{frame}
+\end{comment}
+
+
+\section{Examples}
+
+\subsection{002-minimum-working-example}
+
+\begin{frame}{Minimum Working Example}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/002-minimum-working-example}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/002-minimum-working-example}
+\end{frame}
+
+
+\subsection{003-model-output}
+
+\begin{frame}{Extracting output from Regression Models}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/003-model-output}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/003-model-output}
+\end{frame}
+
+
+\subsection{004-figures}
+
+\begin{frame}{Figures}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/004-figures}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/004-figures}
+\end{frame}
+
+
+\subsection{005-beamer-presentation}
+
+\begin{frame}{Beamer Presentations}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/005-beamer-presentation}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/005-beamer-presentation}
+\end{frame}
+
+
+\subsection{006-sensitivity-analysis-one-parameter}
+
+\begin{frame}{Changing one Parameter in an Analysis}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/006-sensitivity-analysis-one-parameter}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/006-sensitivity-analysis-one-parameter}
+\end{frame}
+
+\subsection{007-sensitivity-analysis-many-parameters}
+
+\begin{frame}{Changing Many Parameters in an Analysis}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/007-sensitivity-analysis-many-parameters}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/007-sensitivity-analysis-many-parameters}
+\end{frame}
+
+
+\subsection{008-large-documents}
+
+\begin{frame}{Large Documents}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/008-large-documents}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/008-large-documents}
+\end{frame}
+
+\subsection{009-rmarkdown}
+
+\begin{frame}{HTML Reports}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/009-rmarkdown}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/009-rmarkdown}
+\end{frame}
+
+\subsection{010-rmarkdown-presentation}
+
+\begin{frame}{HTML Presentations}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/010-rmarkdown-presentation}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/010-rmarkdown-presentation}
+\end{frame}
+
+
+
+\section{Final Remarks}
+
+\begin{frame}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.30, keepaspectratio]{./leek}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Always Remember ...}
+
+\[ \textrm{Reproducibility} \propto \frac{1}{\textrm{copy paste}}  \]
+
+
+\end{frame}
+
+
+\begin{frame}{Is the juice worth the squeeze?}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.40, keepaspectratio]{./juice}
+\end{figure}
+\end{frame}
+
+\end{document}
+

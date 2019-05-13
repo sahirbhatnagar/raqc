@@ -1,0 +1,527 @@
+\documentclass[10pt]{beamer}
+\usetheme[numbering = fraction, progressbar = frametitle]{metropolis}
+
+\usepackage{etex} % helps fix \newdimen error which is cause when ctable is loaded with other packages
+\usepackage{comment}
+\usepackage{ctable}
+\usepackage{amsmath,amsthm,amssymb}
+\newtheorem{rcode}{R code}[section]
+\usepackage{url}
+
+%\usepackage[usenames]{xcolor}
+\usepackage{color, colortbl}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+%\usepackage{aeguill}
+
+%\usepackage{xpatch}
+%\renewcommand{\ttdefault}{ul9}
+%\xpatchcmd{\ttfamily}{\selectfont}{\fontencoding{T1}\selectfont}{}{}
+%\DeclareTextCommand{\nobreakspace}{T1}{\leavevmode\nobreak\ }
+
+\usetikzlibrary{shapes.geometric, arrows,shapes.symbols,decorations.pathreplacing}
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, draw=black, fill=pinkish,text width=3.5cm]
+\tikzstyle{startstop2} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, draw=black, fill=background,text width=4.5cm]
+\tikzstyle{startstop3} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, draw=black, fill=beige,text width=3.0cm]
+\tikzstyle{startstop4} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, draw=black, fill=pinkish,text width=4.5cm]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill=blue!30,text width=1.5cm]
+\tikzstyle{process} = [rectangle, minimum width=1cm, minimum height=1cm, text centered, draw=black, fill=orange!30,text width=2cm]
+\tikzstyle{decision} = [diamond, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\tikzstyle{both} = [thick,<->,>=stealth, red]
+
+\tikzset{myshade/.style={minimum size=.4cm,shading=radial,inner color=white,outer color={#1!90!gray}}}
+\newcommand\mycirc[1][]{\tikz\node[circle,myshade=#1]{};}
+\newcommand\myrect[1][]{\tikz\node[rectangle,myshade=#1]{};}
+\newcommand\mystar[1][]{\tikz\node[star,star points=15,star point height=2pt,myshade=#1]{};}
+\newcommand\mydiamond[1][]{\tikz\node[diamond,myshade=#1]{};}
+\newcommand\myellipse[1][]{\tikz\node[ellipse,myshade=#1]{};}
+\newcommand\mykite[1][]{\tikz\node[kite,myshade=#1]{};}
+\newcommand\mydart[1][]{\tikz\node[dart,myshade=#1]{};}
+\newcommand\mycloud[1][]{\tikz\node[cloud,myshade=#1]{};}
+
+%\usepackage{subcaption}
+\usepackage{subfig}
+%\usepackage{caption}
+
+
+\usepackage[]{hyperref}
+\hypersetup{
+    unicode=false,          
+    pdftoolbar=true,        
+    pdfmenubar=true,        
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={useR Montreal July 4, 2018},    % title
+    pdfauthor={Sahir Rai Bhatnagar},     % author
+    pdfsubject={Subject},   % subject of the document
+    pdfcreator={Sahir Rai Bhatnagar},   % creator of the document
+    pdfproducer={Sahir Rai Bhatnagar}, % producer of the document
+    pdfkeywords={}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+    citecolor=blue,        % color of links to bibliography
+    filecolor=black,      % color of file links
+    urlcolor=blue           % color of external links
+}
+
+%\RequirePackage{color}
+
+% define a bunch of colors
+\definecolor{gray}{RGB}{110,110,110}
+\definecolor{darkgray}{RGB}{100,100,100}
+\definecolor{lightgray}{RGB}{200,200,200}
+\definecolor{turquoise}{RGB}{81,193,188}
+\definecolor{tomato}{RGB}{255,136,136}
+\definecolor{mandarina}{RGB}{229,169,25}
+\definecolor{foreground}{RGB}{81,141,193}
+\definecolor{background}{RGB}{246,244,240}
+\definecolor{highlight}{RGB}{229,169,25}
+\definecolor{lowlight}{RGB}{200,200,200}
+\definecolor{beige}{RGB}{255,255,240}
+\definecolor{pinkish}{RGB}{255,223,247}
+%\definecolor{aliceblue}{rgb}{0.94, 0.97, 1.0}
+%\definecolor{antiflashwhite}{rgb}{0.95, 0.95, 0.96}
+
+% some convenient commands
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\high}[1]{\textcolor{highlight}{#1}}
+\newcommand{\low}[1]{\textcolor{lowlight}{#1}}
+\newcommand{\highcode}[1]{\textcolor{highlight}{\texttt{#1}}}
+
+%\setbeamercolor{block body}{bg=beige}
+\setbeamertemplate{theorems}[numbered] % so that you can number the R code theorem environments
+
+%\setbeamercovered{highly dynamic}
+
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+
+
+%\title{Introduction to } % load mtheme
+% define title
+\date{July 5, 2018}
+\author{Sahir Bhatnagar, @syfi\_24} % define date
+% define author
+\institute{McGill Univeristy \\ sahirbhatnagar.com}
+
+\title{The Division of Labour}
+\subtitle{\url{https://github.com/sahirbhatnagar/knitr-tutorial} \\ \url{https://sahirbhatnagar.com/CSSC2018}}
+
+
+
+\begin{document}
+
+<<setup, echo=FALSE,warning=FALSE,message=FALSE,cache=FALSE, results='hide'>>=
+library(knitr)
+set.seed(45)
+opts_chunk$set(echo = TRUE, tidy = FALSE, cache = FALSE, warning = FALSE, message = FALSE)
+knit_hooks$set(crop = hook_pdfcrop)
+opts_template$set(
+    fig.large = list(fig.width = 7, fig.height = 5, fig.align = 'center', crop = TRUE, fig.pos = 'h'),
+    fig.small = list(fig.width = 6, fig.height = 4, fig.align = 'center', crop = TRUE, fig.pos = 'h'),
+    fig.full = list(fig.width = 8, fig.height = 6, fig.align = 'center', crop = TRUE, fig.pos = 'h')
+)
+# smaller font size for chunks
+#opts_chunk$set(size = 'tiny')
+thm <- knit_theme$get("bclear")
+knit_theme$set(thm)
+options(width=78, digits = 2)
+knit_hooks$set(rcode=function(before, options, envir)
+{
+if (before)
+sprintf('\\begin{rcode}\\label{%s}\\hfill{}', options$label)
+else
+'\\end{rcode}'
+})
+
+knit_hooks$set(frame=function(before, options, envir)
+{
+if (before)
+sprintf('\\begin{frame}[fragile]\\hfill{}', options$label)
+else
+'\\end{frame}'
+})
+knitr::read_chunk("slides-packages.R")
+@
+
+<<required-packages,echo=FALSE,warning=FALSE,message=FALSE>>=
+@
+
+\maketitle % define institute
+
+
+\begin{frame}\frametitle{The Division of Labour}
+\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+
+\column{.45\textwidth} % Left column and width
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.6, keepaspectratio]{./smith}
+\small
+\caption{Adam Smith, author of \textit{The Wealth of Nations} (1776), in which he conceptualizes the notion of the division of labour}
+\label{fig:smith}
+\end{figure}
+
+\column{.5\textwidth} % Right column and width
+\small
+\begin{block}{Example: \LaTeX}
+Composition and logical structuring of text is the author's specific contribution to the production of a printed text. Matters such as the choice of the font family, should section headings be in bold face or small capitals? Should they be flush left or centered? Should the text be justified or not? Should the notes appear at the foot of the page or at the end? Should the text be set in one column or two? and so on, is the typesetter's business
+\end{block}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}{Tools for Reproducible Research}
+
+\begin{block}{Free and Open Source Software}
+\begin{itemize}
+\item \texttt{RStudio}: Creating, managing, compiling documents
+\item \LaTeX: Markup language for typesetting a pdf
+\item Markdown: Markup language for typesetting an html
+\item \texttt{R}: Statistical analysis language
+\item \texttt{knitr}: Integrate \LaTeX and \texttt{R} code. Based on Prof. Friedrich Leisch's \href{https://www.statistik.lmu.de/~leisch/Sweave/}{\texttt{Sweave}}
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\begin{tikzpicture}
+\scriptsize
+\node (expr) [startstop] {Why should we care about RR?};
+\node (science) [decision, right of=expr, xshift=2cm, yshift=1.5cm] {For Science};
+\draw [arrow] (expr) -- (science);
+\node (stan) [process, right of=science, xshift=3cm, yshift=2cm] {Standard to judge scientific claims};
+\node (dupli) [process, right of=science, xshift=3cm, yshift=0.5cm] {Avoid duplication};
+\node (know) [process, right of=science, xshift=3cm, yshift=-1cm] {Cumulative knowledge development};
+\draw [arrow] (science) -- (stan);
+\draw [arrow] (science) -- (dupli);
+\draw [arrow] (science) -- (know);
+\pause \node (you) [decision, right of=expr, xshift=2cm, yshift=-1.5cm] {For You};
+\draw [arrow] (expr) -- (you);
+\node (work) [process, right of=you, xshift=3cm, yshift=0.5cm] {Better work habits};
+\node (team) [process, right of=you, xshift=3cm, yshift=-0.7cm] {Better teamwork};
+\node (change) [process, right of=you, xshift=3cm, yshift=-1.9cm] {Changes are easier};
+\node (soft) [process, right of=you, xshift=3cm, yshift=-3.1cm] {Higher research impact};
+\draw [arrow] (you) -- (work);
+\draw [arrow] (you) -- (team);
+\draw [arrow] (you) -- (change);
+\draw [arrow] (you) -- (soft);
+\end{tikzpicture}
+\end{frame}
+
+
+
+
+
+%\begin{frame}\frametitle{RStudio: Integrated Development Environment (IDE)}
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.25, keepaspectratio]{./RStudio-Screenshot}
+%\end{figure}
+%\textit{Demonstrate:} Explore \texttt{RStudio} 
+%\end{frame}
+
+
+
+\begin{frame}{What \texttt{knitr} does}
+\textbf{\LaTeX} example:
+
+\begin{center}
+\begin{tikzpicture}
+\scriptsize
+\node (expr) [startstop] {Report.Rnw (contains both code and LaTeX)};
+\node (science) [decision, below of=expr, xshift=0cm, yshift=-2cm] {Report.tex};
+\draw [arrow] (expr) -- node[anchor=east]{\texttt{knitr::knit('Report.Rnw')}} (science);
+\node (pdf) [io, below of=science, xshift=0cm, yshift=-2cm] {Report.pdf};
+\draw [arrow] (science) -- node[anchor=east]{\texttt{latex2pdf('Report.tex')}} (pdf);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+
+
+\begin{frame}[fragile]{Example 1: Show code and results}
+<<out-first-code-chunk, echo=FALSE, comment=NA>>=
+cat(paste("<<example-code-chunk-name, echo=TRUE>>=","x <- rnorm(50)","mean(x)","@",sep="\n"))
+@
+produces
+<<echo=TRUE>>=
+x <- rnorm(50)
+mean(x)
+@
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}[fragile]{\texttt{R} output within the text}
+\begin{itemize}
+\item Include \texttt{R} output within the text
+\item We can do that with ``S-expressions'' using the command \textbackslash \texttt{Sexpr}\{$\ldots$\}
+\end{itemize}
+\vspace{1cm}
+
+\textbf{Example:} \vspace{0.3cm}
+
+The iris dataset has \textbackslash \texttt{Sexpr}\{\texttt{nrow(iris)}\} rows and \textbackslash \texttt{Sexpr}\{\texttt{ncol(iris)}\} columns
+\vspace{0.5cm}
+
+produces \vspace{0.5cm}
+
+The iris dataset has \Sexpr{nrow(iris)} rows and \Sexpr{ncol(iris)} columns
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Include a Figure}
+\scriptsize
+<<out-first-code-chunk3, echo=FALSE, comment=NA>>=
+cat(paste("<<fig.ex, fig.cap='Linear Regression',fig.height=3,fig.width=3>>=","plot(mtcars[ , c('disp','mpg')])","fit <- lm(mpg ~ disp , data = mtcars)", "abline(fit,lwd=2)","@",sep="\n"))
+@
+<<slr7, fig.cap='Linear regression', echo=FALSE, fig.height=2.5,fig.width=4, fig.align='center', crop=TRUE>>=
+plot(mtcars[ , c("disp","mpg")])
+fit <- lm(mpg ~ disp , data = mtcars)
+abline(fit, lwd=2)
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Include a Table}
+\scriptsize
+<<out-first-code-chunk4, echo=FALSE, comment=NA>>=
+cat(paste("<<table.ex, results='asis'>>=","library(xtable)", "tab <- xtable(iris[1:5,1:5],caption='Sample of Iris data')", "print(tab, include.rownames=FALSE)","@",sep="\n"))
+@
+<<table-iris, results='asis'>>=
+library(xtable)
+tab <- xtable(iris[1:5,1:5], caption = 'Sample of Iris data')
+print(tab, include.rownames = F)
+@
+\end{frame}
+
+
+\begin{comment}
+\section{Details}
+
+\subsection{Code Chunks}
+
+\begin{frame}{A selection of \texttt{knitr} code chunk options}
+content...
+\end{frame}
+
+
+\begin{frame}{Set global chunk options}
+content...
+\end{frame}
+
+
+\begin{frame}{Option Aliases}
+see page 109 yihui
+\end{frame}
+
+
+\begin{frame}{Option Templates}
+see page 110 yihui
+\end{frame}
+
+\begin{frame}{Chunk References}
+see page 79 yihui
+\end{frame}
+
+
+\begin{frame}{Code in Appendix}
+see page 110 yihui
+\end{frame}
+
+
+
+\subsection{Hooks}
+\begin{frame}{A selection of \texttt{knitr} code chunk options}
+content...
+\end{frame}
+
+
+\subsection{Child Documents}
+\begin{frame}{A selection of \texttt{knitr} code chunk options}
+see 83
+\end{frame}
+
+
+
+\subsection{Custom Environments}
+\begin{frame}{Example Environment}
+see 120
+\end{frame}
+\end{comment}
+
+\begin{comment}
+\section{Examples}
+
+\subsection{002-minimum-working-example}
+
+\begin{frame}{Minimum Working Example}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/002-minimum-working-example}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/002-minimum-working-example}
+\end{frame}
+
+
+\subsection{003-model-output}
+
+\begin{frame}{Extracting output from Regression Models}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/003-model-output}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/003-model-output}
+\end{frame}
+
+
+\subsection{004-figures}
+
+\begin{frame}{Figures}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/004-figures}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/004-figures}
+\end{frame}
+
+
+\subsection{005-beamer-presentation}
+
+\begin{frame}{Beamer Presentations}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/005-beamer-presentation}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/005-beamer-presentation}
+\end{frame}
+
+
+\subsection{006-sensitivity-analysis-one-parameter}
+
+\begin{frame}{Changing one Parameter in an Analysis}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/006-sensitivity-analysis-one-parameter}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/006-sensitivity-analysis-one-parameter}
+\end{frame}
+
+\subsection{007-sensitivity-analysis-many-parameters}
+
+\begin{frame}{Changing Many Parameters in an Analysis}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/007-sensitivity-analysis-many-parameters}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/007-sensitivity-analysis-many-parameters}
+\end{frame}
+
+
+\subsection{008-large-documents}
+
+\begin{frame}{Large Documents}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/008-large-documents}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/008-large-documents}
+\end{frame}
+
+\subsection{009-rmarkdown}
+
+\begin{frame}{HTML Reports}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/009-rmarkdown}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/009-rmarkdown}
+\end{frame}
+
+\subsection{010-rmarkdown-presentation}
+
+\begin{frame}{HTML Presentations}
+\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/010-rmarkdown-presentation}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/010-rmarkdown-presentation}
+\end{frame}
+\end{comment}
+
+
+
+
+\begin{frame}{Markdown: HTML without knowing HTML}
+\begin{center}
+\includegraphics[scale=0.45, keepaspectratio]{markdown}
+\end{center}
+\end{frame}
+
+\begin{frame}{R + Markdown = RMarkdown}
+\begin{center}
+\includegraphics[scale=0.36, keepaspectratio]{rmarkdown}
+\end{center}
+\end{frame}
+
+\begin{frame}{What \texttt{rmarkdown} does}
+\textbf{\code{RMarkdown}} example:
+
+\begin{center}
+\begin{tikzpicture}
+\scriptsize
+\node (expr) [startstop] {Report.Rmd (contains both code and markdown)};
+\node (science) [decision, below of=expr, xshift=0cm, yshift=-2cm] {Report.md};
+\draw [arrow] (expr) -- node[anchor=east]{\texttt{knitr::knit('Report.Rmd')}} (science);
+\node (pdf) [io, below of=science, xshift=0cm, yshift=-2cm] {Report.html, Report.pdf, Report.doc};
+\draw [arrow] (science) -- node[anchor=east]{\texttt{pandoc}} (pdf);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+
+
+
+\begin{frame}{How to choose between \LaTeX\mbox{ }and Markdown ?}
+ %\hspace*{-1.9cm}\parbox[t]{\textwidth}{
+\begin{tikzpicture}
+\node (expr) [startstop4] {math/stat symbols \textcolor{pinkish}{tecccccc}
+beamer presentations \textcolor{pinkish}{teccccc}
+customized documents \textcolor{pinkish}{tecccc}
+publish to journals, arXiv 
+%\code{getwd()}\textcolor{pinkish}{teccc}
+%\code{rm()}\textcolor{pinkish}{tevvvvvvv}
+ };
+\node (fat) [startstop2, below of=expr, xshift=-.0cm, yshift=-2.0cm] {quick and easy reports\textcolor{background}{tkkk} 
+use javascript libraries \textcolor{background}{tekkt}
+interactive plots \textcolor{background}{texkkkkjjt}
+publish to websites};
+%\node (script) [startstop3, below of=fat, xshift=.1cm, yshift=-1.5cm] {
+%\code{read.table()}
+%\code{write.table()}
+%\code{load()}
+%\code{save()}\textcolor{beige}{text}
+%\code{source()}};
+\draw[decoration={brace,raise=5pt, amplitude=10pt},decorate,line width=1pt] 
+  ([yshift=-1pt]expr.south west) -- ([yshift=1pt]expr.north west) node [black,midway,xshift=-1.5cm] 
+{ \LaTeX};
+\draw[decoration={brace,raise=5pt,amplitude=10pt},decorate,line width=1pt] 
+  ([yshift=-1pt]fat.south west) -- ([yshift=1pt]fat.north west) node [black,midway,xshift=-1.5cm] 
+{Markdown};
+%\draw[decoration={brace,raise=5pt,amplitude=10pt},decorate,line width=1pt] 
+%  ([yshift=-1pt]script.south west) -- ([yshift=1pt]script.north west) node [black,midway,xshift=-3cm] 
+{\footnotesize Accéder les données et scripts R};
+\end{tikzpicture}
+%}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.30, keepaspectratio]{./leek}
+\end{figure}
+
+\vspace{2cm}
+
+\[ \textrm{Reproducibility} \propto \frac{1}{\textrm{copy paste}}  \]
+
+\end{frame}
+
+
+
+\end{document}
+
+
+
+
+
+
