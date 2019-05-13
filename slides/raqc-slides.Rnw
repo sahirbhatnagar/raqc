@@ -259,7 +259,7 @@ Les données et le code utilisés pour effectuer une constatation sont disponibl
 \subsection{001-exemple-justificatif}
 
 \begin{frame}{Un exemple justificatif}
-\textit{Demonstrate:} \href{https://github.com/sahirbhatnagar/raqc/tree/master/001-exemple-justificatif}{001-exemple-justificatif}\\
+\textit{Démo:} \href{https://github.com/sahirbhatnagar/raqc/tree/master/001-motivating-example}{001-motivating-example}\\
 
 %\textit{Survey:}
 %\href{https://www.surveymonkey.com/s/CDVXW3C}{https://www.surveymonkey.com/s/CDVXW3C}

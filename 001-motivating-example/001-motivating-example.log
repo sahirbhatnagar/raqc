@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.2.18)  12 MAY 2019 23:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.2.18)  13 MAY 2019 09:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1042,7 +1042,7 @@ msy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on 001-motivating-example.pdf (11 pages, 919576 bytes).
+Output written on 001-motivating-example.pdf (11 pages, 919775 bytes).
 PDF statistics:
  221 PDF objects out of 1000 (max. 8388607)
  181 compressed objects within 2 object streams
