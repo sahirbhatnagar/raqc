@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2019/dev/Debian) (preloaded format=xelatex 2019.2.18)  12 MAY 2019 20:04
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2019/dev/Debian) (preloaded format=xelatex 2019.2.18)  12 MAY 2019 23:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1728,29 +1728,26 @@ File: blogdown.png Graphic file (type bmp)
 
 ] [17
 
+] [18
+
 ]
 File: ./miktex.jpg Graphic file (type bmp)
 <./miktex.jpg>
 
-Overfull \hbox (4.07039pt too wide) in paragraph at lines 340--340
+Overfull \hbox (4.07039pt too wide) in paragraph at lines 343--343
  [] 
  []
 
-[18
+[19
 
 ]
 File: ./smith.jpg Graphic file (type bmp)
 <./smith.jpg>
-[19
+[20
 
 ]
 File: ./don.jpg Graphic file (type bmp)
 <./don.jpg>
-[20
-
-]
-File: ./RStudio-Screenshot.png Graphic file (type bmp)
-<./RStudio-Screenshot.png>
 [21
 
 ]
@@ -1758,24 +1755,24 @@ File: ./RStudio-Screenshot.png Graphic file (type bmp)
 <./RStudio-Screenshot.png>
 [22
 
-] [23
+]
+File: ./RStudio-Screenshot.png Graphic file (type bmp)
+<./RStudio-Screenshot.png>
+[23
 
 ] [24
+
+] [25
 
 ]
 File: ./Compile-pdf.jpg Graphic file (type bmp)
 <./Compile-pdf.jpg>
-[25
+[26
 
 ]
 File: ./sweave_chunk.png Graphic file (type bmp)
 <./sweave_chunk.png>
-[26
-
-]
-\openout4 = `raqc-slides.vrb'.
-
-(./raqc-slides.vrb) [27
+[27
 
 ]
 \openout4 = `raqc-slides.vrb'.
@@ -1800,6 +1797,11 @@ File: ./sweave_chunk.png Graphic file (type bmp)
 ]
 \openout4 = `raqc-slides.vrb'.
 
+(./raqc-slides.vrb) [32
+
+]
+\openout4 = `raqc-slides.vrb'.
+
 (./raqc-slides.vrb
 Overfull \hbox (21.25743pt too wide) in paragraph at lines 11--11
 []\TU/FiraMono(0)/m/n/8 <<fig.ex, fig.cap=[]Linear Regression[],fig.height=3,fi
@@ -1808,16 +1810,14 @@ g.width=3>>=[]
 
 File: figure/slr7-1.pdf Graphic file (type pdf)
 <use figure/slr7-1.pdf>
-) [32
+) [33
 
 ]
 \openout4 = `raqc-slides.vrb'.
 
-(./raqc-slides.vrb) [33
+(./raqc-slides.vrb) [34
 
-] Excluding 'comment' comment. [34
-
-] [35
+] Excluding 'comment' comment. [35
 
 ] [36
 
@@ -1833,17 +1833,19 @@ File: figure/slr7-1.pdf Graphic file (type pdf)
 
 ] [42
 
+] [43
+
 ]
 File: ./leek.png Graphic file (type bmp)
 <./leek.png>
-[43
+[44
 
-] [44
+] [45
 
 ]
 File: ./juice.jpg Graphic file (type bmp)
 <./juice.jpg>
-[45
+[46
 
 ]
 \tf@nav=\write7
@@ -1855,25 +1857,25 @@ File: ./juice.jpg Graphic file (type bmp)
 \tf@snm=\write9
 \openout9 = `raqc-slides.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 770.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 770.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 773.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 773.
 (./raqc-slides.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 770.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 770.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 773.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 773.
 Package rerunfilecheck Info: File `raqc-slides.out' has not changed.
-(rerunfilecheck)             Checksum: 0315D9327A58C73634E37458697120FB.
+(rerunfilecheck)             Checksum: ABB6CE7B65AC7C6BC41E75CD82865C16.
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 3.0pt have occurred.
 
  ) 
 Here is how much of TeX's memory you used:
- 38421 strings out of 492962
- 776042 string characters out of 6135709
- 851249 words of memory out of 5000000
- 41742 multiletter control sequences out of 15000+600000
- 541955 words of font info for 114 fonts, out of 8000000 for 9000
+ 38419 strings out of 492962
+ 775950 string characters out of 6135709
+ 853019 words of memory out of 5000000
+ 41741 multiletter control sequences out of 15000+600000
+ 541947 words of font info for 113 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  67i,18n,102p,849b,918s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on raqc-slides.pdf (45 pages).
+Output written on raqc-slides.pdf (46 pages).
