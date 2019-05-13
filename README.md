@@ -14,6 +14,8 @@ Un atelier présenté par [Sahir Bhatnagar](http://sahirbhatnagar.com/) (McGill 
 
 Avec la taille toujours grandissante des données et la complexité des méthodes nécessaires pour les analyser, la reproductibilité des résultats est nécessaire pour assurer une qualité élevée de recherche scientifique. Parallèlement, la façon dont la recherche est diffusée a également changé. Les serveurs de prépublication électronique, les blogs, GitHub et Twitter sont des plateformes gratuites qui réduisent considérablement le temps de publication, permettant aux chercheurs de partager rapidement des idées, de générer des discussions, de publier du code et de promouvoir leur travail. Dans cet atelier, je présenterai les outils essentiels d'un plan de travail reproductible. À partir d'un ensemble de données brutes, vous apprendrez à structurer vos scripts d'analyse, à créer des documents dynamiques à l'aide de Rmarkdown et à suivre les changements apportés à l'analyse, grâce au contrôle de version avec Git. Par la suite, vous créerai un site Web et publierai vos résultats en ligne sous la forme d'un article de blog. Cet atelier sera 100% interactif. Les participants sont encouragés à apporter leurs propres ordinateurs.
 
+1. [Diapositives](https://github.com/sahirbhatnagar/raqc/raw/master/slides/raqc-slides.pdf)  
+2. 
 
 ## Comment vous préparer pour l'atelier
 

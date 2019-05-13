@@ -59,12 +59,28 @@
 \usepackage{ctable}
 
 \usetikzlibrary{shapes.geometric, arrows,shapes.symbols,decorations.pathreplacing}
-\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30,text width=2.0cm]
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, draw=black, fill=pinkish,text width=3.5cm]
+\tikzstyle{startstop2} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, draw=black, fill=background,text width=4.5cm]
+\tikzstyle{startstop3} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, draw=black, fill=beige,text width=3.0cm]
+\tikzstyle{startstop4} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, draw=black, fill=pinkish,text width=4.5cm]
 \tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill=blue!30,text width=1.5cm]
 \tikzstyle{process} = [rectangle, minimum width=1cm, minimum height=1cm, text centered, draw=black, fill=orange!30,text width=2cm]
 \tikzstyle{decision} = [diamond, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill=green!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
 \tikzstyle{both} = [thick,<->,>=stealth, red]
+% define a bunch of colors
+\definecolor{gray}{RGB}{110,110,110}
+\definecolor{darkgray}{RGB}{100,100,100}
+\definecolor{lightgray}{RGB}{200,200,200}
+\definecolor{turquoise}{RGB}{81,193,188}
+\definecolor{tomato}{RGB}{255,136,136}
+\definecolor{mandarina}{RGB}{229,169,25}
+\definecolor{foreground}{RGB}{81,141,193}
+\definecolor{background}{RGB}{246,244,240}
+\definecolor{highlight}{RGB}{229,169,25}
+\definecolor{lowlight}{RGB}{200,200,200}
+\definecolor{beige}{RGB}{255,255,240}
+\definecolor{pinkish}{RGB}{255,223,247}
 
 \tikzset{myshade/.style={minimum size=.4cm,shading=radial,inner color=white,outer color={#1!90!gray}}}
 \newcommand\mycirc[1][]{\tikz\node[circle,myshade=#1]{};}
@@ -113,6 +129,21 @@
     citecolor=blue,        % color of links to bibliography
     filecolor=black,      % color of file links
     urlcolor=cyan           % color of external links
+}
+
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+
+\AtBeginSection[]{
+	\begin{frame}
+	\vfill
+	\centering
+	\begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+		\usebeamerfont{title}\insertsectionhead\par%
+	\end{beamercolorbox}
+	\vfill
+\end{frame}
 }
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
@@ -296,7 +327,7 @@ Les données et le code utilisés pour effectuer une constatation sont disponibl
 \subsection{001-exemple-justificatif}
 
 \begin{frame}{Un exemple justificatif}
-\textit{Demonstrate:} \href{https://github.com/sahirbhatnagar/raqc/tree/master/001-exemple-justificatif}{001-exemple-justificatif}\\
+\textit{Démo:} \href{https://github.com/sahirbhatnagar/raqc/tree/master/001-motivating-example}{001-motivating-example}\\
 
 %\textit{Survey:}
 %\href{https://www.surveymonkey.com/s/CDVXW3C}{https://www.surveymonkey.com/s/CDVXW3C}
@@ -304,17 +335,18 @@ Les données et le code utilisés pour effectuer une constatation sont disponibl
 
 
 
-\section{Getting Started}
+\section{Commencer}
 
-\begin{frame}{Tools for Reproducible Research\footnote{\href{http://onepager.togaware.com/}{http://onepager.togaware.com/}}}
+\begin{frame}{Outils pour la recherche reproductible\footnote{\href{http://onepager.togaware.com/}{http://onepager.togaware.com/}}}
 
 
-\begin{block}{Free and Open Source Software}
+\begin{block}{Logiciel gratuit et << open source >>}
 \begin{itemize}
-\item \texttt{RStudio}: Creating, managing, compiling documents
-\item \LaTeX: Markup language for typesetting a document
-\item \texttt{R}: Statistical analysis language
-\item \texttt{knitr}: Integrate \LaTeX and \texttt{R} code. Based on Prof. Friedrich Leisch's \href{https://www.statistik.lmu.de/~leisch/Sweave/}{\texttt{Sweave}}
+\item \texttt{RStudio}: Créer, gérer, compiler des documents
+\item \LaTeX: langage de balisage pour la composition d'un document
+\item \texttt{R}: Langage d'analyse statistique
+\item \texttt{knitr}: Intègre le code \LaTeX et le code \texttt{R}. La version moderne de \href{https://www.statistik.lmu.de/~leisch/Sweave/}{\texttt {Sweave}} du professeur Friedrich Leisch
+\item \texttt{RMarkdown}: Intègre le code Markdown et le code \texttt{R}
 \end{itemize}
 \end{block}
 \end{frame}
@@ -322,7 +354,7 @@ Les données et le code utilisés pour effectuer une constatation sont disponibl
 
 \subsection{\LaTeX}
 
-\begin{frame}\frametitle{Comparison}
+\begin{frame}\frametitle{Comparaison}
 \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
 
 \column{.45\textwidth} % Left column and width
@@ -335,8 +367,8 @@ Les données et le code utilisés pour effectuer une constatation sont disponibl
 
 \column{.5\textwidth} % Right column and width
 \begin{itemize}
-\item \LaTeX \, has a greater learning curve
-\item Many tasks are very tedious or impossible (most cases) to do in MS Word or Libre Office
+\item \LaTeX \, a une plus grande courbe d'apprentissage
+\item De nombreuses tâches sont très difficiles ou impossibles (la plupart des cas) à effectuer dans MS Word ou Libre Office
 \end{itemize}
 \end{columns}
 
@@ -344,7 +376,7 @@ Les données et le code utilisés pour effectuer une constatation sont disponibl
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}\frametitle{The Philosophy behind \LaTeX}
+\begin{frame}\frametitle{La philosophie derrière \LaTeX}
 \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
 
 \column{.45\textwidth} % Left column and width
@@ -352,14 +384,17 @@ Les données et le code utilisés pour effectuer une constatation sont disponibl
 \centering
 \includegraphics[scale=0.6, keepaspectratio]{./smith}
 \small
-\caption{Adam Smith, author of \textit{The Wealth of Nations} (1776), in which he conceptualizes the notion of the division of labour}
+\caption{Adam Smith, l'auteur de \textit{The Wealth of Nations} (1776), dans lequel il conceptualise la notion de division du travail}
 \label{fig:smith}
 \end{figure}
 
 \column{.5\textwidth} % Right column and width
 \small
-\begin{block}{Division of Labour}
-Composition and logical structuring of text is the author's specific contribution to the production of a printed text. Matters such as the choice of the font family, should section headings be in bold face or small capitals? Should they be flush left or centered? Should the text be justified or not? Should the notes appear at the foot of the page or at the end? Should the text be set in one column or two? and so on, is the typesetter's business
+\begin{block}{Division du travail}
+La \textbf{composition} et la structuration logique du texte constituent la contribution spécifique de \textbf{l'auteur} à la production d'un texte imprimé. \\
+\vspace*{0.25in}
+\pause
+Des questions telles que le choix de la famille de polices, les \textbf{en-têtes de section doivent-ils être en caractères gras ou en petites capitales}? Doivent-ils être alignés à gauche ou centrés? Le texte doit-il être justifié ou non? Les notes doivent-elles apparaître au bas de la page ou à la fin? Le texte doit-il être placé dans une colonne ou deux? et ainsi de suite, est l'affaire de la \textbf{typographe}
 \end{block}
 \end{columns}
 
@@ -367,7 +402,7 @@ Composition and logical structuring of text is the author's specific contributio
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}\frametitle{The Genius Behind \LaTeX}
+\begin{frame}\frametitle{Le génie derrière \LaTeX}
 
 \begin{figure}[h!]
 \centering
@@ -395,8 +430,8 @@ Composition and logical structuring of text is the author's specific contributio
 
 \subsection{\texttt{knitr}}
 
-\begin{frame}{What \texttt{knitr} does}
-\textbf{\LaTeX} example:
+\begin{frame}{Que fait \texttt{knitr}}
+Exemple \textbf{\LaTeX}:
 
 \begin{tikzpicture}
 \scriptsize
@@ -409,13 +444,13 @@ Composition and logical structuring of text is the author's specific contributio
 \end{frame}
 
 
-\begin{frame}\frametitle{Compiling a \texttt{.Rnw} document}
+\begin{frame}\frametitle{Compiler un document \texttt{.Rnw}}
 
-\begin{block}{The two steps on previous slide can be executed in one command:}
+\begin{block}{Les deux étapes de la diapositive précédente peuvent être exécutées en une seule commande:}
 \[ \textrm{\texttt{knitr::knit2pdf()}} \]
 \end{block}
 
-or in \texttt{RStudio}:
+ou dans \texttt{RStudio}:
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5, keepaspectratio]{./Compile-pdf.jpg}
@@ -423,16 +458,17 @@ or in \texttt{RStudio}:
 %\textit{Demonstrate:} Explore \texttt{RStudio}, projects and \texttt{.Rprofile}
 \end{frame}
 
-\begin{frame}\frametitle{Incorporating \texttt{R} code}
+\begin{frame}\frametitle{Incorporer le code \texttt{R}}
 
 \begin{itemize}
-\item Insert \texttt{R} code in a \textbf{Code Chunk} starting with $$ << \quad >>= $$
-and ending with \begin{center}
+\item Insérer le code \texttt{R} dans un \textbf{morceau de code} commençant par $$ << \quad >>= $$
+et se terminant par
+\begin{center}
 {@}
 \end{center}
 \end{itemize}
 
-In \texttt{RStudio}:
+Dans \texttt{RStudio}:
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.35, keepaspectratio]{./sweave_chunk}
@@ -440,7 +476,7 @@ In \texttt{RStudio}:
 %\textit{Demonstrate:} Explore \texttt{RStudio}, projects and \texttt{.Rprofile}
 \end{frame}
 
-\begin{frame}[fragile]{Example 1}
+\begin{frame}[fragile]{Exemple 1}
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
@@ -466,7 +502,7 @@ produces
 \end{frame}
 
 
-\begin{frame}[fragile]{Example 2}
+\begin{frame}[fragile]{Exemple 2}
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
@@ -536,7 +572,7 @@ for(i in 1:5){ (i+3) %>% print}
 produces
 
 
-\textit{Demonstrate:} Try it yourself
+\textit{Démo:} Essayez vous-même
 \end{frame}
 
 
@@ -567,7 +603,7 @@ The iris dataset has 150 rows and 5 columns
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-<<fig.ex, fig.cap='Linear Regression',fig.height=3,fig.width=3>>=
+<<lm, fig.cap='Regression',fig.height=3,fig.width=3>>=
 plot(mtcars[ , c('disp','mpg')])
 lm(mpg ~ disp , data = mtcars) %>%
 abline(lwd=2)
@@ -606,8 +642,8 @@ print(include.rownames=FALSE)
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-% latex table generated in R 3.5.1 by xtable 1.8-4 package
-% Sun May 12 23:10:18 2019
+% latex table generated in R 3.6.0 by xtable 1.8-4 package
+% Mon May 13 13:34:04 2019
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrl}
@@ -682,65 +718,146 @@ see 120
 \end{comment}
 
 
-\section{Examples}
+\subsection{RMarkdown}
+
+\begin{frame}{Markdown: HTML without knowing HTML}
+\begin{center}
+	\includegraphics[scale=0.45, keepaspectratio]{markdown}
+\end{center}
+\end{frame}
+
+\begin{frame}{R + Markdown = RMarkdown}
+\begin{center}
+\includegraphics[scale=0.36, keepaspectratio]{rmarkdown}
+\end{center}
+\end{frame}
+
+\begin{frame}{What \texttt{rmarkdown} does}
+\textbf{\code{RMarkdown}} example:
+
+\begin{center}
+\begin{tikzpicture}
+\scriptsize
+\node (expr) [startstop] {Report.Rmd (contains both code and markdown)};
+\node (science) [decision, below of=expr, xshift=0cm, yshift=-2cm] {Report.md};
+\draw [arrow] (expr) -- node[anchor=east]{\texttt{knitr::knit('Report.Rmd')}} (science);
+\pause \node (pdf) [io, below of=science, xshift=0cm, yshift=-2cm] {Report.html, Report.pdf, Report.doc};
+\draw [arrow] (science) -- node[anchor=east]{\texttt{pandoc}} (pdf);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+\begin{frame}\frametitle{Compiling a \texttt{.Rmd} document}
+
+\begin{block}{The two steps on previous slide can be executed in one command:}
+\[ \textrm{\texttt{rmarkdown::render()}} \]
+\end{block}
+
+or in \texttt{RStudio}:
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.21, keepaspectratio]{rmddrop.png}
+\end{figure}
+%\textit{Demonstrate:} Explore \texttt{RStudio}, projects and \texttt{.Rprofile}
+\end{frame}
+
+
+\begin{frame}{How to choose between \LaTeX\mbox{ }and Markdown ?}
+%\hspace*{-1.9cm}\parbox[t]{\textwidth}{
+\begin{tikzpicture}
+\node (expr) [startstop4] {math/stat symbols \textcolor{pinkish}{tecccccc}
+	beamer presentations \textcolor{pinkish}{teccccc}
+	customized documents \textcolor{pinkish}{tecccc}
+	publish to journals, arXiv 
+	%\code{getwd()}\textcolor{pinkish}{teccc}
+	%\code{rm()}\textcolor{pinkish}{tevvvvvvv}
+};
+\node (fat) [startstop2, below of=expr, xshift=-.0cm, yshift=-2.0cm] {quick and easy reports\textcolor{background}{tkkk} 
+	use javascript libraries \textcolor{background}{tekkt}
+	interactive plots \textcolor{background}{texkkkkjjt}
+	publish to websites};
+%\node (script) [startstop3, below of=fat, xshift=.1cm, yshift=-1.5cm] {
+%\code{read.table()}
+%\code{write.table()}
+%\code{load()}
+%\code{save()}\textcolor{beige}{text}
+%\code{source()}};
+\draw[decoration={brace,raise=5pt, amplitude=10pt},decorate,line width=1pt] 
+([yshift=-1pt]expr.south west) -- ([yshift=1pt]expr.north west) node [black,midway,xshift=-1.5cm] 
+{ \LaTeX};
+\draw[decoration={brace,raise=5pt,amplitude=10pt},decorate,line width=1pt] 
+([yshift=-1pt]fat.south west) -- ([yshift=1pt]fat.north west) node [black,midway,xshift=-1.5cm] 
+{Markdown};
+%\draw[decoration={brace,raise=5pt,amplitude=10pt},decorate,line width=1pt] 
+%  ([yshift=-1pt]script.south west) -- ([yshift=1pt]script.north west) node [black,midway,xshift=-3cm] 
+{\footnotesize Accéder les données et scripts R};
+\end{tikzpicture}
+%}
+\end{frame}
+
+
+
+
+\section{Exemples}
 
 \subsection{002-minimum-working-example}
 
 \begin{frame}{Minimum Working Example}
-\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/002-minimum-working-example}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/002-minimum-working-example}
+\href{https://github.com/sahirbhatnagar/raqc/tree/master/002-minimum-working-example}{https://github.com/sahirbhatnagar/raqc/tree/master/002-minimum-working-example}
 \end{frame}
 
 
 \subsection{003-model-output}
 
 \begin{frame}{Extracting output from Regression Models}
-\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/003-model-output}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/003-model-output}
+\href{https://github.com/sahirbhatnagar/raqc/tree/master/003-model-output}{https://github.com/sahirbhatnagar/raqc/tree/master/003-model-output}
 \end{frame}
 
 
 \subsection{004-figures}
 
 \begin{frame}{Figures}
-\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/004-figures}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/004-figures}
+\href{https://github.com/sahirbhatnagar/raqc/tree/master/004-figures}{https://github.com/sahirbhatnagar/raqc/tree/master/004-figures}
 \end{frame}
 
 
 \subsection{005-beamer-presentation}
 
 \begin{frame}{Beamer Presentations}
-\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/005-beamer-presentation}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/005-beamer-presentation}
+\href{https://github.com/sahirbhatnagar/raqc/tree/master/005-beamer-presentation}{https://github.com/sahirbhatnagar/raqc/tree/master/005-beamer-presentation}
 \end{frame}
 
 
 \subsection{006-sensitivity-analysis-one-parameter}
 
 \begin{frame}{Changing one Parameter in an Analysis}
-\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/006-sensitivity-analysis-one-parameter}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/006-sensitivity-analysis-one-parameter}
+\href{https://github.com/sahirbhatnagar/raqc/tree/master/006-sensitivity-analysis-one-parameter}{https://github.com/sahirbhatnagar/raqc/tree/master/006-sensitivity-analysis-one-parameter}
 \end{frame}
 
 \subsection{007-sensitivity-analysis-many-parameters}
 
 \begin{frame}{Changing Many Parameters in an Analysis}
-\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/007-sensitivity-analysis-many-parameters}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/007-sensitivity-analysis-many-parameters}
+\href{https://github.com/sahirbhatnagar/raqc/tree/master/007-sensitivity-analysis-many-parameters}{https://github.com/sahirbhatnagar/raqc/tree/master/007-sensitivity-analysis-many-parameters}
 \end{frame}
 
 
 \subsection{008-large-documents}
 
 \begin{frame}{Large Documents}
-\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/008-large-documents}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/008-large-documents}
+\href{https://github.com/sahirbhatnagar/raqc/tree/master/008-large-documents}{https://github.com/sahirbhatnagar/raqc/tree/master/008-large-documents}
 \end{frame}
 
 \subsection{009-rmarkdown}
 
 \begin{frame}{HTML Reports}
-\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/009-rmarkdown}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/009-rmarkdown}
+\href{https://github.com/sahirbhatnagar/raqc/tree/master/009-rmarkdown}{https://github.com/sahirbhatnagar/raqc/tree/master/009-rmarkdown}
 \end{frame}
 
 \subsection{010-rmarkdown-presentation}
 
 \begin{frame}{HTML Presentations}
-\href{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/010-rmarkdown-presentation}{https://github.com/sahirbhatnagar/knitr-tutorial/tree/master/010-rmarkdown-presentation}
+\href{https://github.com/sahirbhatnagar/raqc/tree/master/010-rmarkdown-presentation}{https://github.com/sahirbhatnagar/raqc/tree/master/010-rmarkdown-presentation}
 \end{frame}
 
 

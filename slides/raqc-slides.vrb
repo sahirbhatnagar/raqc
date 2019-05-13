@@ -12,8 +12,8 @@ print(include.rownames=FALSE)
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-% latex table generated in R 3.5.1 by xtable 1.8-4 package
-% Sun May 12 23:10:18 2019
+% latex table generated in R 3.6.0 by xtable 1.8-4 package
+% Mon May 13 13:34:04 2019
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrl}
