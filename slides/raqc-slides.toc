@@ -7,14 +7,15 @@
 \beamer@subsectionintoc {2}{2}{RStudio}{25}{0}{2}
 \beamer@subsectionintoc {2}{3}{\texttt {knitr}}{27}{0}{2}
 \beamer@subsectionintoc {2}{4}{RMarkdown}{38}{0}{2}
-\beamer@sectionintoc {3}{Exemples}{44}{0}{3}
-\beamer@subsectionintoc {3}{1}{002-minimum-working-example}{45}{0}{3}
-\beamer@subsectionintoc {3}{2}{003-model-output}{46}{0}{3}
-\beamer@subsectionintoc {3}{3}{004-figures}{47}{0}{3}
-\beamer@subsectionintoc {3}{4}{005-beamer-presentation}{48}{0}{3}
-\beamer@subsectionintoc {3}{5}{006-sensitivity-analysis-one-parameter}{49}{0}{3}
-\beamer@subsectionintoc {3}{6}{007-sensitivity-analysis-many-parameters}{50}{0}{3}
-\beamer@subsectionintoc {3}{7}{008-large-documents}{51}{0}{3}
-\beamer@subsectionintoc {3}{8}{009-rmarkdown}{52}{0}{3}
-\beamer@subsectionintoc {3}{9}{010-rmarkdown-presentation}{53}{0}{3}
-\beamer@sectionintoc {4}{Final Remarks}{54}{0}{4}
+\beamer@subsectionintoc {2}{5}{Git et GitHub}{44}{0}{2}
+\beamer@sectionintoc {3}{Exemples}{45}{0}{3}
+\beamer@subsectionintoc {3}{1}{002-minimum-working-example}{46}{0}{3}
+\beamer@subsectionintoc {3}{2}{003-model-output}{47}{0}{3}
+\beamer@subsectionintoc {3}{3}{004-figures}{48}{0}{3}
+\beamer@subsectionintoc {3}{4}{005-beamer-presentation}{49}{0}{3}
+\beamer@subsectionintoc {3}{5}{006-sensitivity-analysis-one-parameter}{50}{0}{3}
+\beamer@subsectionintoc {3}{6}{007-sensitivity-analysis-many-parameters}{51}{0}{3}
+\beamer@subsectionintoc {3}{7}{008-large-documents}{52}{0}{3}
+\beamer@subsectionintoc {3}{8}{009-rmarkdown}{53}{0}{3}
+\beamer@subsectionintoc {3}{9}{010-rmarkdown-presentation}{54}{0}{3}
+\beamer@sectionintoc {4}{Final Remarks}{55}{0}{4}

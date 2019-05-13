@@ -13,7 +13,7 @@ print(include.rownames=FALSE)
 \end{kframe}
 \end{knitrout}
 % latex table generated in R 3.6.0 by xtable 1.8-4 package
-% Mon May 13 13:34:04 2019
+% Mon May 13 19:33:00 2019
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrl}

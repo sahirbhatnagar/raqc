@@ -52,14 +52,14 @@ Veuillez compléter le sondage:
 
 # Requirements
 
-* [R (version ≥ 3.4.1)](http://cran.r-project.org/)
-* [RStudio (version ≥ 1.1.442)](http://www.rstudio.com/products/rstudio/download/preview/)  
-* [Git](https://git-scm.com/downloads)
-* [Sign up for a GitHub Account](https://github.com/)
-* [GitKraken](https://www.gitkraken.com/) (_optional_)  
-* Run the following commands in `R` for required packages:
+Vous devez apporter votre propre ordinateur portable. Il faut aussi installer les logiciels suivants (gratuit)
 
-<br>
+* [R (version ≥ 3.6.0)](http://cran.r-project.org/)
+* [RStudio (version ≥ 1.2.1335)](https://www.rstudio.com/products/rstudio/download/#download)  
+* [Git](https://git-scm.com/downloads)
+* [Un compte GitHub](https://github.com/)
+* [GitKraken](https://www.gitkraken.com/)  
+* Les packages `R` suivants:
 
 ```R
 install.packages("pacman")
@@ -68,7 +68,11 @@ pacman::p_load_gh('rstudio/blogdown')
 blogdown::install_hugo(force=TRUE)
 pacman::p_load_gh("juba/rmdformats")
 pacman::p_load_gh('ropensci/drake')
+pacman::p_load('tinytex')
+tinytex::install_tinytex()
 ```
+
+* Si vous n'êtes pas familier avec Git et Github, je vous recommande fortement de consulter mon tutorial [GitHub for Data Scientists without the Terminal](http://sahirbhatnagar.com/git4ds/)  
 
 
 <br>

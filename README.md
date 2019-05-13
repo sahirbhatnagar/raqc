@@ -1,3 +1,5 @@
+RStudio: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/sahirbhatnagar/raqc/master?urlpath=rstudio)
+
 # Avoir une présence en ligne: Outils pour la diffusion rapide et reproductible de la recherche
 
 Un atelier présenté par [Sahir Bhatnagar](http://sahirbhatnagar.com/) (McGill University) à [R à Québec 2019](http://raquebec.ulaval.ca/).
@@ -11,6 +13,7 @@ Un atelier présenté par [Sahir Bhatnagar](http://sahirbhatnagar.com/) (McGill 
 1. [Diapositives](https://github.com/sahirbhatnagar/raqc/raw/master/slides/raqc-slides.pdf)  
 2. [Git et GitHub](https://sahirbhatnagar.com/git4ds)  
 3. [blogdown](https://sahirbhatnagar.com/raqc/)  
+
 
 
 ## Apperçu
