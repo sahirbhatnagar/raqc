@@ -216,10 +216,10 @@ knitr::read_chunk("slides-packages.R")
 \begin{itemize}
 \item \textbf{8h30 à 10h00}: Introduction aux raports reproductibles avec knitr et RMarkdown
 \item \textbf{10h00 à 10h30}: Pause
-\item \textbf{10h30 à 12h00}: 
+\item \textbf{10h30 à 12h00}: Exercises, Git, GitHub
 \item \textbf{13h30 à 15h00}: Créer un siteweb avec blogdown
 \item \textbf{15h00 à 15h30}: Pause
-\item \textbf{15h30 à 17h}: 
+\item \textbf{15h30 à 17h}: Publier son propre site et << Github Project Pages >>
 \item \textbf{17h}: Fin de l'atelier
 \end{itemize}
 \end{frame}
@@ -717,23 +717,19 @@ librairies javascript, \textcolor{background}{tekkhhhht}	graphiques interactifs 
 \end{frame}
 
 
-\subsection{008-large-documents}
-
-\begin{frame}{Large Documents}
-\href{https://github.com/sahirbhatnagar/raqc/tree/master/008-large-documents}{https://github.com/sahirbhatnagar/raqc/tree/master/008-large-documents}
-\end{frame}
-
-\subsection{009-rmarkdown}
-
-\begin{frame}{HTML Reports}
-\href{https://github.com/sahirbhatnagar/raqc/tree/master/009-rmarkdown}{https://github.com/sahirbhatnagar/raqc/tree/master/009-rmarkdown}
-\end{frame}
-
 \subsection{010-rmarkdown-presentation}
 
 \begin{frame}{HTML Presentations}
 \href{https://github.com/sahirbhatnagar/raqc/tree/master/010-rmarkdown-presentation}{https://github.com/sahirbhatnagar/raqc/tree/master/010-rmarkdown-presentation}
 \end{frame}
+
+\subsection{015-two-column}
+
+\begin{frame}{Large Documents}
+\href{https://github.com/sahirbhatnagar/raqc/tree/master/015-two-column}{https://github.com/sahirbhatnagar/raqc/tree/master/015-two-column}
+\end{frame}
+
+
 
 
 
