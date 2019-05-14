@@ -64,6 +64,9 @@
 
 
 <<setup, echo=FALSE,warning=FALSE,message=FALSE,cache=FALSE, results='hide'>>=
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(knitr, here) # needed for filepaths
+
 options(width=60, digits=2)
 set.seed(45)
 opts_chunk$set(echo = FALSE, tidy = TRUE, cache = FALSE, warning = FALSE, message = FALSE)
@@ -73,10 +76,10 @@ opts_template$set(
     fig.small = list(fig.width = 6, fig.height = 4, fig.align = 'center', fig.pos = 'h'),
     fig.full = list(fig.width = 8, fig.height = 6, fig.align = 'center', fig.pos = 'h')
 )
-knitr::read_chunk("006-packages.R")
+knitr::read_chunk(here::here("R","006-packages.R"))
 @
 
-<<required-packages,echo=FALSE,warning=FALSE,message=FALSE, eval=TRUE, results='hide'>>=
+<<required-packages, results='hide'>>=
 @
 
 
@@ -88,10 +91,12 @@ Often in statistics, we are required to perform sensitivity analyses to see the 
 \tableofcontents
 
 \section{Lawrence Joseph's Trip to Purvis Hall}
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=1, keepaspectratio]{./clt}
-\end{figure}
+
+
+<<>>=
+knitr::include_graphics(path = here::here("clt.png"))
+@
+
 
 \FloatBarrier
 
@@ -115,7 +120,7 @@ src <- mapply(knitr::knit_expand, file = "006-CLT-template.Rnw", i = seq(10,2010
 \appendix
 \section{Session Information}
 <<echo=TRUE>>=
-sessionInfo()
+print(sessionInfo(), locale = FALSE)
 @
 
 

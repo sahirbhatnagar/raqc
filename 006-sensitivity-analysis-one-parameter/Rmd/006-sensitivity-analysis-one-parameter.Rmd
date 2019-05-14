@@ -1,0 +1,88 @@
+---
+title: "006-Sensitivity Analysis of One Paramter"
+author: "Central Limit Theorem"
+date: "`r Sys.Date()`"
+output:
+  bookdown::html_document2:
+    theme: flatly
+    keep_md: yes
+    highlight: tango
+    fig_caption: yes
+    toc: true
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+    number_sections: true
+bibliography: 006-bibliography.bib
+link-citations: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(knitr, here) # needed for filepaths
+
+options(width=60, digits=2)
+set.seed(45)
+opts_chunk$set(echo = FALSE, tidy = TRUE, cache = FALSE, warning = FALSE, message = FALSE)
+opts_template$set(
+    fig.large = list(fig.width = 7, fig.height = 5, fig.align = 'center', fig.pos = 'H'),
+    fig.small = list(fig.width = 6, fig.height = 4, fig.align = 'center', fig.pos = 'H'),
+    fig.full = list(fig.width = 8, fig.height = 6, fig.align = 'center', fig.pos = 'H')
+)
+opts_knit$set(eval.after = 'fig.cap') # for captions to be evaluated after R objects are available 
+
+knitr::read_chunk(here::here("R","006-packages.R"))
+```
+
+
+```{r required-packages, results = 'hide'}
+```
+
+
+
+
+# Introduction
+
+Often in statistics, we are required to perform sensitivity analyses to see the effect of parameters on inference. Here I provide a simple illustration of performing such a task in an efficient and reproducible way using the function \texttt{knitr::knit\_expand} [@k1;@k2;@k3]. We use the demonstration of the Central Limit Theorem (CLT) in action [@joseph] as an example.
+
+<br>
+
+
+# Lawrence Joseph's Trip to Purvis Hall
+
+```{r}
+knitr::include_graphics(path = here::here("clt.png"))
+```
+
+
+<br>
+
+
+# Proof of CLT in Action with \texttt{R} and \texttt{knitr::knit\_expand}
+
+```{r}
+src <- mapply(knitr::knit_expand, file = "006-CLT-template.Rmd", i = seq(10,2010, by=100))
+```
+
+
+`r knit(text = unlist(src))`
+
+<br>
+
+
+# Code {-}
+
+```{r all-code, ref.label=knitr::all_labels(), echo = TRUE, eval = FALSE}
+```
+
+# Session Information
+
+```{r}
+print(sessionInfo(), locale = FALSE)
+```
+
+
+# References
+
