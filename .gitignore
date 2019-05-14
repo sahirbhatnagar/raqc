@@ -9,6 +9,7 @@ index_files
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
+*-concordance.tex
 *.lof
 *.log
 *.lot
@@ -35,6 +36,7 @@ index_files
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
 *.bcf
+*.brf
 *.blg
 *-blx.aux
 *-blx.bib
