@@ -69,6 +69,9 @@
 
 
 <<setup, echo=FALSE,warning=FALSE,message=FALSE,cache=FALSE, results='hide'>>=
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(knitr, here) # needed for filepaths
+
 options(width=60, digits=2)
 set.seed(45)
 opts_chunk$set(echo = FALSE, tidy = TRUE, cache = FALSE, warning = FALSE, message = FALSE)
@@ -78,15 +81,16 @@ opts_template$set(
     fig.full = list(fig.width = 8, fig.height = 6, fig.align = 'center', fig.pos = 'H')
 )
 opts_knit$set(eval.after = 'fig.cap') # for captions to be evaluated after R objects are available 
-knitr::read_chunk("003-packages.R")
-knitr::read_chunk("003-seizure-rct-code.R")
-knitr::read_chunk("003-texreg-geepack.R")
+
+knitr::read_chunk(here::here("R","003-packages.R"))
+knitr::read_chunk(here::here("R","003-seizure-rct-code.R"))
+knitr::read_chunk(here::here("R","003-texreg-geepack.R"))
 @
 
-<<required-packages,echo=FALSE,warning=FALSE,message=FALSE, eval=TRUE, results='hide'>>=
+<<required-packages,results='hide'>>=
 @
 
-<<texreg-extractor-geeglm,echo=FALSE,warning=FALSE,message=FALSE, eval=TRUE, results='hide'>>=
+<<texreg-extractor-geeglm,results='hide'>>=
 @
 
 \begin{abstract}
@@ -127,10 +131,10 @@ Marginal mean is given by~\eqref{eq:eq1}, and variance model $var(Y_{ij}) = \alp
 
 \section{Results}
 
-<<import-data,echo=FALSE,warning=FALSE,message=FALSE, eval=TRUE, results='hide'>>=
+<<import-data, results='hide'>>=
 @
 
-<<fit-models,echo=FALSE,warning=FALSE,message=FALSE, eval=TRUE, results='asis'>>=
+<<fit-models, results='asis'>>=
 @
 
 
@@ -155,7 +159,7 @@ Marginal mean is given by~\eqref{eq:eq1}, and variance model $var(Y_{ij}) = \alp
 
 \section{Session Information}
 <<echo=TRUE>>=
-sessionInfo()
+print(sessionInfo(), locale=FALSE)
 @
 
 

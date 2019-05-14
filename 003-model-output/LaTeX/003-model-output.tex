@@ -1,0 +1,333 @@
+\documentclass[11pt,letter]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}    
+%\usepackage[latin1]{inputenc}
+\usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{amsmath,amsthm,amssymb,bbm} %math stuff
+\usepackage{ctable}
+\usepackage{placeins} % FloatBarrier
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{float}    % for fig.pos='H'
+\usepackage{rotfloat} % for sidewaysfigure
+%\usepackage{subfig}   % for subfigure
+\usepackage{subcaption}  % an alternative package for sub figures
+\newcommand{\subfloat}[2][need a sub-caption]{\subcaptionbox{#1}{#2}}
+\usepackage{comment}
+\usepackage[round]{natbib}   % omit 'round' option if you prefer square brackets
+\bibliographystyle{plainnat}
+\usepackage{setspace} %Spacing
+\usepackage{graphicx,graphics}
+\usepackage{booktabs,tabularx}
+\usepackage{enumerate}
+\usepackage{makecell}
+\usepackage{xfrac}
+\usepackage{color, colortbl, xcolor}
+\usepackage{booktabs,dcolumn} % for use with texreg in R
+\usepackage[pagebackref=true,bookmarks]{hyperref}
+\hypersetup{
+    unicode=false,          
+    pdftoolbar=true,        
+    pdfmenubar=true,        
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={003-Model Output},    % title
+    pdfauthor={SRB},     % author
+    pdfsubject={Subject},   % subject of the document
+    pdfcreator={SRB},   % creator of the document
+    pdfproducer={SRB}, % producer of the document
+    pdfkeywords={}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+    citecolor=blue,        % color of links to bibliography
+    filecolor=black,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
+% my commands
+\newcommand{\tm}[1]{\textrm{#1}}
+
+
+% fancy header commands
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+\setlength{\textheight}{9.00in}
+\setlength{\textwidth}{7.00in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\evensidemargin}{-0.25in}
+\setlength{\oddsidemargin}{-0.25in}
+\renewcommand{\baselinestretch}{1.2}
+\makeatletter
+\makeatother
+\lfoot{} \cfoot{ } \rfoot{{\small{\em Page \thepage \ of \pageref{LastPage}}}}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+\pagestyle{fancy}
+
+\title{003-Model Output}
+\author{Randomized Control Trial on Epileptic Seizures}
+\maketitle
+
+
+
+
+
+
+
+
+\begin{abstract}
+Outputting regression estimates to \LaTeX tables is one of the most tedious tasks an analyst has to perform. If an error is made during the data-cleaning or analysis steps, one is forced to manually re-enter the parameter estimates and their standard errors. Furthermore, manual entry of so many numbers is prone to error. In this example, we illustrate how to automate the task of creating tables from model output using the \texttt{xtable::xtable}~\citep{xtable} and \texttt{texreg::texreg}~\citep{texreg} functions. We illustrate this task using the epileptic seizures data in 59 individuals randomized to the anti-epileptic drug progabide or placebo~\citep{thall1990some}. For each patient, the number of epileptic seizures was recorded during a baseline period of 8 weeks, and then for 4 consecutive 2-week periods post-randomization. 
+\end{abstract}
+
+
+\section{The Models}
+Let $Y_{ij}$ be the number of seizures on patient $i$ during period $j$ for $i=1,\ldots, 59$ and $j=0,1,2,3,4$, and $T_j$ is the observation time during period $j$, for $j=0,1,2,3,4$ with $T_0=8 \tm{ weeks}$ and $T_j=2\tm{ weeks}$ for $j=1,2,3,4$.   
+
+
+
+\subsection{GLM}
+
+The response model is $Y_{ij}|\boldsymbol{\beta},\mu_{ij} \sim_{ind} \tm{Poisson}(\mu_{ij})$ with
+\begin{align}
+\log \left(\mu_{ij} \right)  = &\log(T_{j}) + \beta_0 + \beta_1 \cdot  \mathbbm{1}_{\left\lbrace \tm{progabide} \right\rbrace }(\mbox{treatment}_{i}) + \nonumber \\ 
+& \beta_2 \cdot  \mathbbm{1}_{\left\lbrace \tm{post} \right\rbrace }(\mbox{randomization}_{i}) + \nonumber \\ 
+& \beta_3 \cdot \mathbbm{1}_{\left\lbrace \tm{progabide} \right\rbrace }(\mbox{treatment}_{i})  \times \mathbbm{1}_{\left\lbrace \tm{post} \right\rbrace }(\mbox{randomization}_{i})   \label{eq:eq1}
+\end{align}
+
+
+\subsection{GLMM}
+
+We consider the following two-stage model~\citep{wakefield2013bayesian}:\\
+\textit{Stage One}: The response model is $Y_{ij}|\boldsymbol{\beta},\mu_{ij},b_i \sim_{ind} \tm{Poisson}(\mu_{ij})$ with
+\begin{align}
+\log \left(\mu_{ij} \right)  = &\log(T_{j}) + \beta_0 + \beta_1 \cdot  \mathbbm{1}_{\left\lbrace \tm{progabide} \right\rbrace }(\mbox{treatment}_{i}) + \nonumber \\ 
+& \beta_2 \cdot  \mathbbm{1}_{\left\lbrace \tm{post} \right\rbrace }(\mbox{randomization}_{i}) + \nonumber \\ 
+& \beta_3 \cdot \mathbbm{1}_{\left\lbrace \tm{progabide} \right\rbrace }(\mbox{treatment}_{i})  \times \mathbbm{1}_{\left\lbrace \tm{post} \right\rbrace }(\mbox{randomization}_{i}) + b_i  \label{eq:eq2}
+\end{align}
+
+\textit{Stage Two}: The random effects model is $b_i\, |\, \sigma_0^2 \sim_{iid} \mathcal{N}(0,\sigma_0^2)$.
+
+\subsection{GEE}
+Marginal mean is given by~\eqref{eq:eq1}, and variance model $var(Y_{ij}) = \alpha \mu_{ij}$. We consider various forms for the working correlation.
+
+
+\section{Results}
+
+
+
+
+\begin{table}[H]
+\begin{center}
+\begin{scriptsize}
+\begin{tabular}{l c c c c c c }
+\hline
+ & GLM & GLMM & GEE Ind & GEE Unst. & GEE Ex. & GEE AR1 \\
+\hline
+$\beta_0$                & $\mathbf{1.35} \; (0.03)^{***}$ & $\mathbf{1.03} \; (0.15)^{***}$ & $\mathbf{1.35} \; (0.16)^{***}$ & $1.15 \; (1.64)$  & $\mathbf{1.35} \; (0.16)^{***}$ & $\mathbf{1.31} \; (0.16)^{***}$ \\
+$\beta_1$                & $0.03 \; (0.05)$                & $-0.02 \; (0.21)$               & $0.03 \; (0.22)$                & $-0.14 \; (2.06)$ & $0.03 \; (0.22)$                & $0.02 \; (0.21)$                \\
+$\beta_2$                & $\mathbf{0.11} \; (0.05)^{*}$   & $\mathbf{0.11} \; (0.05)^{*}$   & $0.11 \; (0.12)$                & $-0.06 \; (0.50)$ & $0.11 \; (0.12)$                & $0.16 \; (0.11)$                \\
+$\beta_3$                & $-0.10 \; (0.07)$               & $-0.10 \; (0.06)$               & $-0.10 \; (0.21)$               & $0.13 \; (0.83)$  & $-0.10 \; (0.21)$               & $-0.13 \; (0.27)$               \\
+\hline
+AIC                      & 4643.05                         & 2030.67                         &                                 &                   &                                 &                                 \\
+BIC                      & 4657.80                         & 2049.11                         &                                 &                   &                                 &                                 \\
+Log Likelihood           & -2317.53                        & -1010.34                        &                                 &                   &                                 &                                 \\
+Deviance                 & 3574.07                         &                                 &                                 &                   &                                 &                                 \\
+Num. obs.                & 295                             & 295                             & 295                             & 295               & 295                             & 295                             \\
+Num. groups: subject     &                                 & 59                              &                                 &                   &                                 &                                 \\
+Var: subject (Intercept) &                                 & 0.61                            &                                 &                   &                                 &                                 \\
+Num. clust.              &                                 &                                 & 59                              & 59                & 59                              & 59                              \\
+\hline
+\multicolumn{7}{l}{\tiny{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+\end{tabular}
+\end{scriptsize}
+\caption{Comparing model estimates}
+\label{table:coefficients}
+\end{center}
+\end{table}
+
+
+
+
+
+
+
+
+\FloatBarrier
+\nocite{k1,k2,k3}
+\bibliography{003-bibliography}
+
+
+\newpage
+\appendix
+
+\section{R Code}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{print}\hlstd{(}\hlkwd{sessionInfo}\hlstd{(),} \hlkwc{locale} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+\hlstd{getPckg} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{pckg}\hlstd{)} \hlkwd{install.packages}\hlstd{(pckg,} \hlkwc{repos} \hlstd{=} \hlstr{"http://cran.r-project.org"}\hlstd{)}
+
+\hlkwa{if} \hlstd{(}\hlopt{!}\hlkwd{require}\hlstd{(}\hlstr{"pacman"}\hlstd{))} \hlkwd{install.packages}\hlstd{(}\hlstr{"pacman"}\hlstd{)}
+
+\hlstd{pacman}\hlopt{::}\hlkwd{p_load}\hlstd{(knitr, here, texreg, xtable, MASS, dplyr, data.table,}
+    \hlstd{bookdown, geepack, lme4)}
+\hlcom{##################################### R Source code for seizure data Created: May 13, 2019}
+\hlcom{##################################### Updated: NOTES:you need the custom extract function defined}
+\hlcom{##################################### in 003-texreg-package.R for this code to work}
+\hlkwd{data}\hlstd{(}\hlstr{"epil"}\hlstd{)}  \hlcom{# from MASS library}
+\hlstd{DT} \hlkwb{<-} \hlstd{epil} \hlopt{%>%} \hlstd{as.data.table}
+\hlstd{DT.base} \hlkwb{<-} \hlstd{DT} \hlopt{%>%} \hlkwd{distinct}\hlstd{(subject,} \hlkwc{.keep_all} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\hlstd{DT.base[,} \hlkwd{`:=`}\hlstd{(}\hlkwc{period} \hlstd{=} \hlnum{0}\hlstd{,} \hlkwc{y} \hlstd{= base)]}
+\hlstd{DT.epil} \hlkwb{<-} \hlkwd{rbind}\hlstd{(DT, DT.base)}
+\hlkwd{setkey}\hlstd{(DT.epil, subject, period)}
+\hlstd{DT.epil[,} \hlkwd{`:=`}\hlstd{(}\hlkwc{post} \hlstd{=} \hlkwd{as.numeric}\hlstd{(period} \hlopt{>} \hlnum{0}\hlstd{),} \hlkwc{tj} \hlstd{=} \hlkwd{ifelse}\hlstd{(period} \hlopt{==}
+    \hlnum{0}\hlstd{,} \hlnum{8}\hlstd{,} \hlnum{2}\hlstd{))]}
+\hlstd{fit.glm} \hlkwb{<-} \hlkwd{glm}\hlstd{(y} \hlopt{~} \hlstd{trt} \hlopt{*} \hlstd{post,} \hlkwc{data} \hlstd{= DT.epil,} \hlkwc{family} \hlstd{=} \hlstr{"poisson"}\hlstd{,}
+    \hlkwc{offset} \hlstd{=} \hlkwd{log}\hlstd{(tj))}
+
+\hlstd{fit.glmm} \hlkwb{<-} \hlstd{lme4}\hlopt{::}\hlkwd{glmer}\hlstd{(y} \hlopt{~} \hlstd{trt} \hlopt{*} \hlstd{post} \hlopt{+} \hlstd{(}\hlnum{1} \hlopt{|} \hlstd{subject),} \hlkwc{data} \hlstd{= DT.epil,}
+    \hlkwc{family} \hlstd{=} \hlstr{"poisson"}\hlstd{,} \hlkwc{offset} \hlstd{=} \hlkwd{log}\hlstd{(tj))}
+
+\hlstd{fit.gee.ind} \hlkwb{<-} \hlstd{geepack}\hlopt{::}\hlkwd{geeglm}\hlstd{(y} \hlopt{~} \hlstd{trt} \hlopt{*} \hlstd{post,} \hlkwc{id} \hlstd{= subject,}
+    \hlkwc{offset} \hlstd{=} \hlkwd{log}\hlstd{(tj),} \hlkwc{data} \hlstd{= DT.epil,} \hlkwc{family} \hlstd{=} \hlstr{"poisson"}\hlstd{,} \hlkwc{corstr} \hlstd{=} \hlstr{"independence"}\hlstd{)}
+
+\hlstd{fit.gee.ex} \hlkwb{<-} \hlstd{geepack}\hlopt{::}\hlkwd{geeglm}\hlstd{(y} \hlopt{~} \hlstd{trt} \hlopt{*} \hlstd{post,} \hlkwc{id} \hlstd{= subject,} \hlkwc{offset} \hlstd{=} \hlkwd{log}\hlstd{(tj),}
+    \hlkwc{data} \hlstd{= DT.epil,} \hlkwc{family} \hlstd{=} \hlstr{"poisson"}\hlstd{,} \hlkwc{corstr} \hlstd{=} \hlstr{"exchangeable"}\hlstd{)}
+
+\hlstd{fit.gee.unst} \hlkwb{<-} \hlstd{geepack}\hlopt{::}\hlkwd{geeglm}\hlstd{(y} \hlopt{~} \hlstd{trt} \hlopt{*} \hlstd{post,} \hlkwc{id} \hlstd{= subject,}
+    \hlkwc{offset} \hlstd{=} \hlkwd{log}\hlstd{(tj),} \hlkwc{data} \hlstd{= DT.epil,} \hlkwc{family} \hlstd{=} \hlstr{"poisson"}\hlstd{,} \hlkwc{corstr} \hlstd{=} \hlstr{"unstructured"}\hlstd{)}
+
+\hlstd{fit.gee.ar1} \hlkwb{<-} \hlstd{geepack}\hlopt{::}\hlkwd{geeglm}\hlstd{(y} \hlopt{~} \hlstd{trt} \hlopt{*} \hlstd{post,} \hlkwc{id} \hlstd{= subject,}
+    \hlkwc{offset} \hlstd{=} \hlkwd{log}\hlstd{(tj),} \hlkwc{data} \hlstd{= DT.epil,} \hlkwc{family} \hlstd{=} \hlstr{"poisson"}\hlstd{,} \hlkwc{corstr} \hlstd{=} \hlstr{"ar1"}\hlstd{)}
+
+\hlstd{texreg}\hlopt{::}\hlkwd{texreg}\hlstd{(}\hlkwd{list}\hlstd{(fit.glm, fit.glmm, fit.gee.ind, fit.gee.unst,}
+    \hlstd{fit.gee.ex, fit.gee.ar1),} \hlkwc{custom.model.names} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"GLM"}\hlstd{,} \hlstr{"GLMM"}\hlstd{,}
+    \hlstr{"GEE Ind"}\hlstd{,} \hlstr{"GEE Unst."}\hlstd{,} \hlstr{"GEE Ex."}\hlstd{,} \hlstr{"GEE AR1"}\hlstd{),} \hlkwc{custom.coef.names} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"$\textbackslash{}\textbackslash{}beta_0$"}\hlstd{,}
+    \hlstr{"$\textbackslash{}\textbackslash{}beta_1$"}\hlstd{,} \hlstr{"$\textbackslash{}\textbackslash{}beta_2$"}\hlstd{,} \hlstr{"$\textbackslash{}\textbackslash{}beta_3$"}\hlstd{),} \hlkwc{fontsize} \hlstd{=} \hlstr{"scriptsize"}\hlstd{,}
+    \hlkwc{caption} \hlstd{=} \hlstr{"Comparing model estimates"}\hlstd{,} \hlkwc{single.row} \hlstd{= T,} \hlkwc{bold} \hlstd{=} \hlnum{0.05}\hlstd{,}
+    \hlkwc{float.pos} \hlstd{=} \hlstr{"H"}\hlstd{)}
+\hlstd{extract.geepack} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{model}\hlstd{) \{}
+    \hlstd{s} \hlkwb{<-} \hlkwd{summary}\hlstd{(model)}
+    \hlstd{names} \hlkwb{<-} \hlkwd{rownames}\hlstd{(s}\hlopt{$}\hlstd{coef)}
+    \hlstd{co} \hlkwb{<-} \hlstd{s}\hlopt{$}\hlstd{coef[,} \hlnum{1}\hlstd{]}
+    \hlstd{se} \hlkwb{<-} \hlstd{s}\hlopt{$}\hlstd{coef[,} \hlnum{2}\hlstd{]}
+    \hlstd{pval} \hlkwb{<-} \hlstd{s}\hlopt{$}\hlstd{coef[,} \hlnum{4}\hlstd{]}
+
+    \hlstd{n} \hlkwb{<-} \hlkwd{nrow}\hlstd{(}\hlkwd{model.frame}\hlstd{(model))}
+    \hlstd{nclust} \hlkwb{<-} \hlkwd{length}\hlstd{(s}\hlopt{$}\hlstd{geese}\hlopt{$}\hlstd{clusz)}
+
+    \hlstd{gof} \hlkwb{=} \hlkwd{c}\hlstd{(n, nclust)}
+    \hlstd{gof.names} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlstr{"Num. obs."}\hlstd{,} \hlstr{"Num. clust."}\hlstd{)}
+
+    \hlstd{tr} \hlkwb{<-} \hlkwd{createTexreg}\hlstd{(}\hlkwc{coef.names} \hlstd{= names,} \hlkwc{coef} \hlstd{= co,} \hlkwc{se} \hlstd{= se,}
+        \hlkwc{pvalues} \hlstd{= pval,} \hlkwc{gof.names} \hlstd{= gof.names,} \hlkwc{gof} \hlstd{= gof,} \hlkwc{gof.decimal} \hlstd{=} \hlkwd{rep}\hlstd{(}\hlnum{FALSE}\hlstd{,}
+            \hlkwd{length}\hlstd{(gof)))}
+    \hlkwd{return}\hlstd{(tr)}
+\hlstd{\}}
+
+\hlkwd{setMethod}\hlstd{(}\hlstr{"extract"}\hlstd{,} \hlkwc{signature} \hlstd{=} \hlkwd{className}\hlstd{(}\hlstr{"geeglm"}\hlstd{,} \hlstr{"geepack"}\hlstd{),}
+    \hlkwc{definition} \hlstd{= extract.geepack)}
+
+\hlcom{## example from the geeglm documentation data(dietox)}
+\hlcom{## dietox$Cu <- as.factor(dietox$Cu) gee1 <- geeglm(Weight ~}
+\hlcom{## Cu * (Time + I(Time^2) + I(Time^3)), data = dietox, id =}
+\hlcom{## Pig, family = poisson('identity'), corstr='ar1') # What the}
+\hlcom{## heck are we fitting??  summary(gee1) screenreg(gee1)}
+\hlcom{## texreg(gee1)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\newpage
+
+\section{Session Information}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{print}\hlstd{(}\hlkwd{sessionInfo}\hlstd{(),} \hlkwc{locale} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## R version 3.6.0 (2019-04-26)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Pop!_OS 18.10
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.8.0
+## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.8.0
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets 
+## [6] methods   base     
+## 
+## other attached packages:
+##  [1] lme4_1.1-20       Matrix_1.2-17     geepack_1.2-1    
+##  [4] bookdown_0.9      data.table_1.12.0 dplyr_0.8.0.1    
+##  [7] MASS_7.3-51.1     xtable_1.8-4      texreg_1.36.23   
+## [10] here_0.1          pacman_0.5.0      knitr_1.22       
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_1.0.1       magrittr_1.5     splines_3.6.0   
+##  [4] tidyselect_0.2.5 lattice_0.20-38  R6_2.4.0        
+##  [7] rlang_0.3.4      minqa_1.2.4      highr_0.8       
+## [10] stringr_1.4.0    tools_3.6.0      grid_3.6.0      
+## [13] nlme_3.1-139     xfun_0.6         rprojroot_1.3-2 
+## [16] assertthat_0.2.1 tibble_2.1.1     crayon_1.3.4    
+## [19] formatR_1.6      nloptr_1.2.1     purrr_0.3.2     
+## [22] glue_1.3.1       evaluate_0.13    stringi_1.4.3   
+## [25] compiler_3.6.0   pillar_1.3.1     backports_1.1.3 
+## [28] pkgconfig_2.0.2
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+\end{document}

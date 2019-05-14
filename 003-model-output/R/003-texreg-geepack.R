@@ -39,3 +39,4 @@ setMethod("extract", signature = className("geeglm", "geepack"),
 # 
 # screenreg(gee1)
 # texreg(gee1)
+
