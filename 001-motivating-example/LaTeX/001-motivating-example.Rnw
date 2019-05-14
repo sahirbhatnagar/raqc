@@ -64,20 +64,27 @@
 
 
 <<setup, echo=FALSE,warning=FALSE,message=FALSE,cache=FALSE, results='hide'>>=
-options(width=60, digits=2)
-set.seed(45)
-opts_chunk$set(echo = FALSE, tidy = TRUE, cache = FALSE, warning = FALSE, message = FALSE)
-#knit_hooks$set(crop = hook_pdfcrop)
-opts_template$set(
-    fig.large = list(fig.width = 7, fig.height = 5, fig.align = 'center', fig.pos = 'h'),
-    fig.small = list(fig.width = 6, fig.height = 4, fig.align = 'center', fig.pos = 'h'),
-    fig.full = list(fig.width = 8, fig.height = 6, fig.align = 'center', fig.pos = 'h')
+# can set global options here
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+# you can create custom chunk options
+knitr::opts_template$set(
+  fig.large = list(fig.width = 7, fig.height = 5, fig.align = 'center', fig.pos = 'h'),
+  fig.small = list(fig.width = 6, fig.height = 4, fig.align = 'center', fig.pos = 'h'),
+  fig.full = list(fig.width = 8, fig.height = 6, fig.align = 'center', fig.pos = 'h')
 )
-knitr::read_chunk("001-packages.R")
-knitr::read_chunk("001-fat-code.R")
+
+# read in scripts. Note: this will not run the code. 
+# Like a 'promise'
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(here) # needed for filepaths
+
+knitr::read_chunk(here::here("R", "001-packages.R"))
+knitr::read_chunk(here::here("R", "001-data.R"))
+knitr::read_chunk(here::here("R", "001-analysis.R"))
 @
 
-<<required-packages,echo=FALSE,warning=FALSE,message=FALSE,eval=TRUE, results='hide'>>=
+<<required-packages, results='hide'>>=
 @
 
 
@@ -91,7 +98,7 @@ Identifying overweight populations is an important first step in fighting the ob
 <<import-data>>=
 @
 
-<<fig-pairs, opts.label = 'fig.small'>>=
+<<pairs, opts.label = 'fig.small', fig.cap='Pairs plot of Body Fat data'>>=
 @
 
 We will fit a model of the form
@@ -106,27 +113,39 @@ pbf1_i= \beta_0+\beta_1\tm{age}_i+\beta_2\tm{weight}_i+\beta_3\tm{height}_i+\bet
 \section{Results}
 
 The parameter estimates of Model~\eqref{eq:eq1} and their standard errors are shown in Table~\ref{tab:results}
+<<fit1>>=
+@
+
 <<linear-regression, results = 'asis'>>=
 @
 
-Model diagnostics are shown in Figures~\ref{fig:fig-diagnostics} and~\ref{fig:influence-plot}
-
-<<fig-diagnostics, opts.label = 'fig.large', fig.cap = 'Regression diagnostics for Model~\\eqref{eq:eq1}'>>=
+<<fit1-plot>>=
 @
 
-<<influence-plot, results = 'hide', opts.label = 'fig.small',fig.cap = 'Regression influence plot for Model~\\eqref{eq:eq1}'>>=
+\FloatBarrier
+
+Model diagnostics are shown in Figures~\ref{fig:diagnostics} and~\ref{fig:influence-plot}
+
+<<diagnostics, opts.label = 'fig.large', fig.cap = 'Regression diagnostics for Model~\\eqref{eq:eq1}'>>=
+@
+
+<<influence-plot, results = 'hide', opts.label = 'fig.small', fig.cap = 'Regression influence plot for Model~\\eqref{eq:eq1}'>>=
 @
 \FloatBarrier
 Look more closely at observation 42:
 
 <<obs42, results = 'asis'>>=
-DT[42,.(pbf1,weight,height),] %>% xtable %>% print(include.rownames = FALSE)
+knitr::kable(DT[42,.(pbf1,weight,height),])
 @
 
 \FloatBarrier
 \section{Sensitivity Analysis}
 
 We perform the same analysis as above, but with observation 42 removed
+
+<<fit2>>=
+@
+
 
 <<linear-regression2, results = 'asis'>>=
 @
@@ -153,7 +172,7 @@ We perform the same analysis as above, but with observation 42 removed
 \newpage
 \section{Session Information}
 <<echo=TRUE>>=
-sessionInfo()
+print(sessionInfo(), locale=FALSE)
 @
 
 

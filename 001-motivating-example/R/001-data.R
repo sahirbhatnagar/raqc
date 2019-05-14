@@ -28,14 +28,12 @@
 # 14. Wrist circumference (cm) “distal to the styloid processes”
 #######################################################################
 
-# this will not be read in by the .Rmd script
-data_path <- "~/git_repositories/CSSC2018/001-motivating-example/data/"
-bin_path <- "~/git_repositories/CSSC2018/001-motivating-example/bin/"
 
 
 ## ---- import-data ----
 
-DT <- data.table::fread(paste0(data_path,"fat-data.csv"))
+file_path <- here::here("data", "fat-data.csv")
+DT <- data.table::fread(file_path)
 
 
 ## ---- other-data-cleaning ----

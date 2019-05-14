@@ -15,11 +15,15 @@ if (!require("pacman")) install.packages("pacman")
 
 pacman::p_load(knitr)
 
+# for easy location of files
+pacman::p_load(here)
+
 # data loading and manipulation
 pacman::p_load(data.table)
 
 # easy plotting and tables of regression output
 pacman::p_load(sjPlot)
+pacman::p_load(ggeffects)
 
 # influencePlot
 pacman::p_load(car)
