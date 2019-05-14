@@ -93,7 +93,7 @@ Marginal mean is given by~\eqref{eq:eq1}, and variance model $var(Y_{ij}) = \alp
 ```{r import-data, results='hide'}
 ```
 
-```{r fit-models-RMD, results='asis'}
+```{r fit-models-RMD}
 ```
 
 
