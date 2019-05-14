@@ -60,6 +60,7 @@ tinytex::install_tinytex()
 
 ### Websites
 
+* [RStudio Addins](https://github.com/daattali/addinslist)  
 * [Happy Git with R](https://happygitwithr.com/)  
 * [CRAN Reproducible Research Task View](http://cran.r-project.org/web/views/ReproducibleResearch.html)
 * [knitr chunk options](http://yihui.name/knitr/options/)

@@ -70,6 +70,9 @@
 
 
 <<setup, echo=FALSE,warning=FALSE,message=FALSE,cache=FALSE, results='hide'>>=
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(knitr, here)
+
 options(width=60, digits=2)
 set.seed(45)
 # set defaults
@@ -87,10 +90,10 @@ knit_hooks$set(rexample = function(before, options, envir) {
 	if (before) { sprintf("\\begin{rexample}\\label{%s}\\hfill{}", options$label) } else "\\end{rexample}" })
 
 
-knitr::read_chunk("002-packages.R")
+knitr::read_chunk(here::here("R","002-packages.R"))
 @
 
-<<required-packages,echo=FALSE,warning=FALSE,message=FALSE, eval=TRUE, results='hide'>>=
+<<required-packages, echo=FALSE, results='hide'>>=
 @
 
 \begin{abstract}
@@ -161,7 +164,7 @@ plot(mtcars)
 
 \section{Session Information}
 <<echo=TRUE>>=
-sessionInfo()
+print(sessionInfo(), locale=FALSE)
 @
 
 

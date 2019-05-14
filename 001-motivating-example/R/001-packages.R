@@ -1,7 +1,7 @@
 #########################################################
 # R Source code file for required packages
-# for 001-motivating-example.Rmd. 
-# Hosted on github repo 'sahirbhatnagar/CSSC2018'
+# for 001-motivating-example.Rmd/Rnw
+# Hosted on github repo 'sahirbhatnagar/raqc'
 # Author: Sahir Bhatnagar
 # Created: May 31, 2018
 # Updated: 

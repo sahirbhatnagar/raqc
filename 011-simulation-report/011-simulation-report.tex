@@ -1,0 +1,1979 @@
+\documentclass[11pt,letter]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}    
+%\usepackage[latin1]{inputenc}
+\usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{amsmath,amsthm,amssymb,bbm} %math stuff
+\usepackage{ctable}
+\usepackage{placeins} % FloatBarrier
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{float}    % for fig.pos='H'
+\usepackage{rotfloat} % for sidewaysfigure
+%\usepackage{subfig}   % for subfigure
+%\usepackage{subcaption}  % an alternative package for sub figures
+\newcommand{\subfloat}[2][need a sub-caption]{\subcaptionbox{#1}{#2}}
+\usepackage{comment}
+\usepackage{natbib}   % omit 'round' option if you prefer square brackets
+\bibliographystyle{plainnat}
+\usepackage{setspace} %Spacing
+\usepackage{graphicx,graphics}
+\usepackage{booktabs,tabularx}
+\usepackage{enumerate}
+\usepackage{makecell}
+%\usepackage{xfrac}
+\usepackage{color, colortbl, xcolor}
+\usepackage{booktabs,dcolumn} % for use with texreg in R
+\usepackage[pagebackref=true,bookmarks]{hyperref}
+\hypersetup{
+    unicode=false,          
+    pdftoolbar=true,        
+    pdfmenubar=true,        
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={011-simulation-report},    % title
+    pdfauthor={MT},     % author
+    pdfsubject={Subject},   % subject of the document
+    pdfcreator={MT},   % creator of the document
+    pdfproducer={MT}, % producer of the document
+    pdfkeywords={}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+    citecolor=blue,        % color of links to bibliography
+    filecolor=black,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
+% my commands
+\newcommand{\tm}[1]{\textrm{#1}}
+
+
+% fancy header commands
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+\setlength{\textheight}{9.00in}
+\setlength{\textwidth}{7.00in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\evensidemargin}{-0.25in}
+\setlength{\oddsidemargin}{-0.25in}
+\renewcommand{\baselinestretch}{1.2}
+\makeatletter
+\makeatother
+\lfoot{} \cfoot{ } \rfoot{{\small{\em Page \thepage \ of \pageref{LastPage}}}}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\pagestyle{fancy}
+
+\title{Simulation results for PCEV}
+\author{Maxime Turgeon}
+\maketitle
+
+
+
+
+
+
+\tableofcontents
+
+\section*{Introduction}
+
+We simulated 1000 datasets of size $n=500$. The general model is given by the following multivariate linear model:
+$$\mathbf{Y} = \beta X + \mathbf{E},$$
+where $\mathbf{Y}$ is of dimension $p$, $X\sim N(0,1)$ and $\mathbf{E}\sim N(0,\Sigma)$. The goal of the simulations is to compare three different approaches to a multivariate association test between $\mathbf{Y}$ and $X$.
+\begin{itemize}
+  \item Univariate approach: a p-value $\mathfrak{p}_j$ is computed for the association between $Y_j$ and $X$, for $j=1,\ldots,p$. The overall p-value is given by
+  $$\mathfrak{p}_{univ} := \min(\mathfrak{p}_1,\ldots,\mathfrak{p}_p)\cdot p,$$
+  where the multiplication by $p$ is a Bonferroni correction for multiple testing.
+  \item Principal components regression (PCR): a principal components analysis is performed on the vector $\mathbf{Y}$ to extract the linear combination $\tilde{Y}$ of the components with the largest variance. The p-value $\mathfrak{p}_{PCR}$ is simply the p-value for the (univariate) association between $\tilde{Y}$ and $X$.
+  \item Principal components of explained variance (PCEV): very similar to PCR, but the linear combination $\tilde{Y}$ is defined such that it maximizes the proportion of variance of $\tilde{Y}$ being explained by the covariate $X$ (this methodology was first introduced by~\cite{ott1999principal}). The p-value $\mathfrak{p}_{PCEV}$ is based on Wilk's lambda, which tests whether this proportion of explained variance is 0.
+\end{itemize}
+
+The dimension $p$ of $\mathbf{Y}$ takes the values $4,10,20,100,200,300,400$. These $p$ phenotypes are splitted in $b$ blocks of equal size (with $b$ equal to $2,5,10,20$). The covariance structure $\Sigma$ depends on two parameters: the within-block correlation $\rho_w$ and the between-block correlation $\rho_b$. Both quantities take value in $\{0, 0.5, 0.7\}$, with the convention that the between-block variance is never larger than the within-block variance, i.e. $\rho_w \geq \rho_b$. Finally, the association between $X$ and a component of $\mathbf{Y}$ is given in terms of the heritability $h^2$; this is related to the more familiar linear regression coefficient $\beta$ via
+$$h^2=\frac{\beta^2}{1 + \beta^2}.$$
+
+The data is available in the \texttt{R} object \texttt{011-simulation-results.RData}. There is a different matrix for each significance level $\alpha=0.01, 0.05, 0.1$, each of the same form: the first six columns respectively correspond to 1) the simulation scenario, 2) the heritability $h^2$, 3) the number of phenotypes $p$, 4) the number of blocks $b$, 5) the within-block correlation $\rho_w$, and 6) the between-block correlation $\rho_b$. The last four columns correspond to the four methods considered (we will ignore Hotteling's method).
+
+\newpage
+
+\section{Simulation scenario 1}
+
+We simulated no association between the continuous covariate $x$ and the multivariate phenotype $\mathbf{Y}$.
+
+\newpage
+
+
+
+
+\subsection{Significance level: 0.01, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/1-0_01-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/1-0_01-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/1-0_01-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/1-0_01-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/1-0_05-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/1-0_05-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/1-0_05-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/1-0_05-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/1-0_1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/1-0_1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/1-0_1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/1-0_1-20-1} 
+
+\end{knitrout}
+
+\newpage
+
+\section{Simulation scenario 2}
+
+We simulated an association between the continuous covariate $x$ and the first component of the multivariate phenotype $\mathbf{Y}$.
+
+\newpage
+
+
+
+
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_01-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_01-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_01-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_01-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_01-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_01-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_01-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_01-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_01-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_01-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_01-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_01-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_05-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_05-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_05-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_05-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_05-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_05-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_05-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_05-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_05-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_05-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_05-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_05-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_1-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_1-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_1-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_1-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_1-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_1-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_1-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_1-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_1-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_1-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_1-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/2-0_1-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+
+\section{Simulation scenario 3}
+
+We simulated an association between the continuous covariate $x$ and two components of the multivariate phenotype $\mathbf{Y}$: the associations are of the same size, in the same direction, and the two components lie in the same block.
+
+\newpage
+
+
+
+
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_01-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_01-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_01-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_01-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_01-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_01-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_01-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_01-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_01-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_01-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_01-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_01-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_05-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_05-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_05-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_05-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_05-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_05-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_05-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_05-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_05-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_05-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_05-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_05-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_1-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_1-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_1-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_1-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_1-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_1-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_1-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_1-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_1-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_1-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_1-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/3-0_1-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+
+\section{Simulation scenario 4}
+
+We simulated an association between the continuous covariate $x$ and two components of the multivariate phenotype $\mathbf{Y}$: the associations are of the same size, in the opposite direction, and the two components lie in the same block.
+
+\newpage
+
+
+
+
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_01-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_01-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_01-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_01-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_01-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_01-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_01-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_01-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_01-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_01-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_01-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_01-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_05-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_05-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_05-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_05-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_05-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_05-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_05-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_05-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_05-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_05-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_05-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_05-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_1-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_1-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_1-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_1-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_1-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_1-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_1-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_1-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_1-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_1-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_1-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/4-0_1-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+
+\section{Simulation scenario 5}
+
+We simulated an association between the continuous covariate $x$ and two components of the multivariate phenotype $\mathbf{Y}$: the associations are of the same size, in the same direction, and the two components lie in different blocks.
+
+\newpage
+
+
+
+
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_01-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_01-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_01-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_01-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_01-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_01-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_01-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_01-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_01-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_01-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_01-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_01-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_05-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_05-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_05-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_05-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_05-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_05-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_05-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_05-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_05-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_05-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_05-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_05-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_1-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_1-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_1-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_1-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_1-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_1-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_1-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_1-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_1-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_1-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_1-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/5-0_1-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+
+\section{Simulation scenario 6}
+
+We simulated an association between the continuous covariate $x$ and two components of the multivariate phenotype $\mathbf{Y}$: the associations are of the same size, in the opposite direction, and the two components lie in different blocks.
+
+\newpage
+
+
+
+
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_01-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_01-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_01-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_01-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_01-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_01-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_01-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_01-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_01-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_01-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_01-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.01, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_01-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_05-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_05-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_05-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_05-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_05-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_05-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_05-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_05-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_05-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_05-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_05-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.05, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_05-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_1-0_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_1-0_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_1-0_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 0.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_1-0_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_1-1-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_1-1-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_1-1-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_1-1-20-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_1-1_5-2-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_1-1_5-5-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 10}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_1-1_5-10-1} 
+
+\end{knitrout}
+
+\newpage
+\subsection{Significance level: 0.1, Heritability: 1.5\%, Number of blocks: 20}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/6-0_1-1_5-20-1} 
+
+\end{knitrout}
+
+\newpage
+
+\FloatBarrier
+\bibliography{011-bibliography}
+
+\newpage
+\appendix
+\section{Session Information}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{sessionInfo}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+## R version 3.6.0 (2019-04-26)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Pop!_OS 18.10
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.8.0
+## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.8.0
+## 
+## locale:
+##  [1] LC_CTYPE=en_CA.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_CA.UTF-8        LC_COLLATE=en_CA.UTF-8    
+##  [5] LC_MONETARY=en_CA.UTF-8    LC_MESSAGES=en_CA.UTF-8   
+##  [7] LC_PAPER=en_CA.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_CA.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets 
+## [6] methods   base     
+## 
+## other attached packages:
+## [1] knitr_1.22
+## 
+## loaded via a namespace (and not attached):
+## [1] compiler_3.6.0 magrittr_1.5   formatR_1.6   
+## [4] tools_3.6.0    stringi_1.4.3  stringr_1.4.0 
+## [7] xfun_0.6       evaluate_0.13
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\end{document}
