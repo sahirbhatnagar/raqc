@@ -66,10 +66,10 @@ knitr::read_chunk("005-packages.R")
 \subtitle{Forced Expiratory Volume and Smoking}
 
 \author[]{Sahir Rai Bhatnagar%
-\thanks{\href{https://github.com/sahirbhatnagar/knitr-tutorial}{https://github.com/sahirbhatnagar/knitr-tutorial}%
+\thanks{\href{https://github.com/sahirbhatnagar/raqc}{https://github.com/sahirbhatnagar/raqc}%
 }}
 
-\date{May 28, 2014}
+
 
 %\makebeamertitle
 
