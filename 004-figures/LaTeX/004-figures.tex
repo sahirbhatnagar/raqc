@@ -272,46 +272,11 @@ We plot answers as a function of age (Figure~\ref{f:figure-61}) with a loess smo
 \begin{alltt}
 \hlkwd{plot}\hlstd{(DT}\hlopt{$}\hlstd{age, DT}\hlopt{$}\hlstd{answers)}
 \hlkwd{lines}\hlstd{(stats}\hlopt{::}\hlkwd{lowess}\hlstd{(DT}\hlopt{$}\hlstd{age, DT}\hlopt{$}\hlstd{answers),} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{,} \hlkwc{lwd} \hlstd{=} \hlnum{3}\hlstd{)}
-\hlkwd{sessionInfo}\hlstd{()}
-\hlstd{getPckg} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{pckg}\hlstd{)} \hlkwd{install.packages}\hlstd{(pckg,} \hlkwc{repos} \hlstd{=} \hlstr{"http://cran.r-project.org"}\hlstd{)}
+\hlkwd{print}\hlstd{(}\hlkwd{sessionInfo}\hlstd{(),} \hlkwc{locale} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+\hlkwa{if} \hlstd{(}\hlopt{!}\hlkwd{require}\hlstd{(}\hlstr{"pacman"}\hlstd{))} \hlkwd{install.packages}\hlstd{(}\hlstr{"pacman"}\hlstd{)}
 
-\hlstd{pckg} \hlkwb{=} \hlkwd{try}\hlstd{(}\hlkwd{require}\hlstd{(knitr))}
-\hlkwa{if} \hlstd{(}\hlopt{!}\hlstd{pckg) \{}
-    \hlkwd{cat}\hlstd{(}\hlstr{"Installing 'knitr' from CRAN\textbackslash{}n"}\hlstd{)}
-    \hlkwd{getPckg}\hlstd{(}\hlstr{"knitr"}\hlstd{)}
-    \hlkwd{require}\hlstd{(knitr)}
-\hlstd{\}}
-
-
-\hlstd{pckg} \hlkwb{=} \hlkwd{try}\hlstd{(}\hlkwd{require}\hlstd{(xtable))}
-\hlkwa{if} \hlstd{(}\hlopt{!}\hlstd{pckg) \{}
-    \hlkwd{cat}\hlstd{(}\hlstr{"Installing 'xtable' from CRAN\textbackslash{}n"}\hlstd{)}
-    \hlkwd{getPckg}\hlstd{(}\hlstr{"xtable"}\hlstd{)}
-    \hlkwd{require}\hlstd{(xtable)}
-\hlstd{\}}
-
-
-\hlstd{pckg} \hlkwb{=} \hlkwd{try}\hlstd{(}\hlkwd{require}\hlstd{(data.table))}
-\hlkwa{if} \hlstd{(}\hlopt{!}\hlstd{pckg) \{}
-    \hlkwd{cat}\hlstd{(}\hlstr{"Installing 'data.table' from CRAN\textbackslash{}n"}\hlstd{)}
-    \hlkwd{getPckg}\hlstd{(}\hlstr{"data.table"}\hlstd{)}
-    \hlkwd{require}\hlstd{(data.table)}
-\hlstd{\}}
-
-
-\hlstd{pckg} \hlkwb{=} \hlkwd{try}\hlstd{(}\hlkwd{require}\hlstd{(lattice))}
-\hlkwa{if} \hlstd{(}\hlopt{!}\hlstd{pckg) \{}
-    \hlkwd{cat}\hlstd{(}\hlstr{"Installing 'lattice' from CRAN\textbackslash{}n"}\hlstd{)}
-    \hlkwd{getPckg}\hlstd{(}\hlstr{"lattice"}\hlstd{)}
-    \hlkwd{require}\hlstd{(lattice)}
-\hlstd{\}}
-
-\hlstd{pckg} \hlkwb{=} \hlkwd{try}\hlstd{(}\hlkwd{require}\hlstd{(ggplot2))}
-\hlkwa{if} \hlstd{(}\hlopt{!}\hlstd{pckg) \{}
-    \hlkwd{cat}\hlstd{(}\hlstr{"Installing 'ggplot2' from CRAN\textbackslash{}n"}\hlstd{)}
-    \hlkwd{getPckg}\hlstd{(}\hlstr{"ggplot2"}\hlstd{)}
-    \hlkwd{require}\hlstd{(ggplot2)}
-\hlstd{\}}
+\hlstd{pacman}\hlopt{::}\hlkwd{p_load}\hlstd{(knitr, here, xtable, lattice, ggplot2, dplyr,}
+    \hlstd{data.table, bookdown)}
 \hlstd{multiplot} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{...}\hlstd{,} \hlkwc{plotlist} \hlstd{=} \hlkwa{NULL}\hlstd{,} \hlkwc{file}\hlstd{,} \hlkwc{cols} \hlstd{=} \hlnum{1}\hlstd{,} \hlkwc{layout} \hlstd{=} \hlkwa{NULL}\hlstd{) \{}
     \hlkwd{require}\hlstd{(grid)}
 
@@ -348,9 +313,12 @@ We plot answers as a function of age (Figure~\ref{f:figure-61}) with a loess smo
         \hlstd{\}}
     \hlstd{\}}
 \hlstd{\}}
-\hlstd{dat} \hlkwb{<-} \hlkwd{read.table}\hlstd{(}\hlstr{"SOCATT.DAT"}\hlstd{,} \hlkwc{colClasses} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"factor"}\hlstd{,} \hlstr{"factor"}\hlstd{,}
-    \hlstr{"numeric"}\hlstd{,} \hlstr{"numeric"}\hlstd{,} \hlstr{"numeric"}\hlstd{,} \hlstr{"numeric"}\hlstd{,} \hlstr{"numeric"}\hlstd{,} \hlstr{"numeric"}\hlstd{,}
-    \hlstr{"numeric"}\hlstd{))}
+\hlstd{dat} \hlkwb{<-} \hlkwd{read.table}\hlstd{(here}\hlopt{::}\hlkwd{here}\hlstd{(}\hlstr{"data"}\hlstd{,} \hlstr{"SOCATT.DAT"}\hlstd{),} \hlkwc{colClasses} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"factor"}\hlstd{,}
+    \hlstr{"factor"}\hlstd{,} \hlstr{"numeric"}\hlstd{,} \hlstr{"numeric"}\hlstd{,} \hlstr{"numeric"}\hlstd{,} \hlstr{"numeric"}\hlstd{,} \hlstr{"numeric"}\hlstd{,}
+    \hlstr{"numeric"}\hlstd{,} \hlstr{"numeric"}\hlstd{))}
+\hlcom{# dat <- read.table('SOCATT.DAT', colClasses=c('factor',}
+\hlcom{# 'factor', 'numeric', 'numeric', 'numeric', 'numeric',}
+\hlcom{# 'numeric', 'numeric', 'numeric'))}
 \hlkwd{colnames}\hlstd{(dat)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Districts"}\hlstd{,} \hlstr{"Subject"}\hlstd{,} \hlstr{"Year"}\hlstd{,} \hlstr{"Score"}\hlstd{,} \hlstr{"Party"}\hlstd{,}
     \hlstr{"SocialClass"}\hlstd{,} \hlstr{"Gender"}\hlstd{,} \hlstr{"Age"}\hlstd{,} \hlstr{"Religion"}\hlstd{)}
 \hlstd{dat}\hlopt{$}\hlstd{Age_Cur} \hlkwb{<-} \hlstd{dat}\hlopt{$}\hlstd{Age} \hlopt{+} \hlstd{dat}\hlopt{$}\hlstd{Year} \hlopt{-} \hlnum{1}
@@ -362,7 +330,8 @@ We plot answers as a function of age (Figure~\ref{f:figure-61}) with a loess smo
     \hlstr{"Other"}\hlstd{,} \hlstr{"None"}\hlstd{))}
 \hlstd{dat}\hlopt{$}\hlstd{SocialClass} \hlkwb{<-} \hlkwd{factor}\hlstd{(dat}\hlopt{$}\hlstd{SocialClass,} \hlkwc{labels} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"Middle"}\hlstd{,}
     \hlstr{"Upper"}\hlstd{,} \hlstr{"Lower"}\hlstd{))}
-\hlstd{DT} \hlkwb{<-} \hlkwd{as.data.table}\hlstd{(}\hlkwd{read.table}\hlstd{(}\hlstr{"SOCATT.DAT"}\hlstd{))}
+\hlstd{DT} \hlkwb{<-} \hlkwd{as.data.table}\hlstd{(}\hlkwd{read.table}\hlstd{(here}\hlopt{::}\hlkwd{here}\hlstd{(}\hlstr{"data"}\hlstd{,} \hlstr{"SOCATT.DAT"}\hlstd{)))}
+\hlcom{# DT <- as.data.table(read.table('SOCATT.DAT'))}
 \hlkwd{setnames}\hlstd{(DT,} \hlkwd{c}\hlstd{(}\hlstr{"District"}\hlstd{,} \hlstr{"id"}\hlstd{,} \hlstr{"year"}\hlstd{,} \hlstr{"answers"}\hlstd{,} \hlstr{"party"}\hlstd{,}
     \hlstr{"ses"}\hlstd{,} \hlstr{"sex"}\hlstd{,} \hlstr{"age"}\hlstd{,} \hlstr{"religion"}\hlstd{))}
 \hlstd{DT[,} \hlkwd{`:=`}\hlstd{(}\hlkwc{party} \hlstd{=} \hlkwd{factor}\hlstd{(}\hlkwd{ifelse}\hlstd{(party} \hlopt{==} \hlnum{1}\hlstd{,} \hlstr{"Conserv"}\hlstd{,} \hlkwd{ifelse}\hlstd{(party} \hlopt{==}
@@ -418,7 +387,7 @@ We plot answers as a function of age (Figure~\ref{f:figure-61}) with a loess smo
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{sessionInfo}\hlstd{()}
+\hlkwd{print}\hlstd{(}\hlkwd{sessionInfo}\hlstd{(),} \hlkwc{locale} \hlstd{=} \hlnum{FALSE}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
 ## R version 3.6.0 (2019-04-26)
@@ -429,33 +398,27 @@ We plot answers as a function of age (Figure~\ref{f:figure-61}) with a loess smo
 ## BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.8.0
 ## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.8.0
 ## 
-## locale:
-##  [1] LC_CTYPE=en_CA.UTF-8       LC_NUMERIC=C              
-##  [3] LC_TIME=en_CA.UTF-8        LC_COLLATE=en_CA.UTF-8    
-##  [5] LC_MONETARY=en_CA.UTF-8    LC_MESSAGES=en_CA.UTF-8   
-##  [7] LC_PAPER=en_CA.UTF-8       LC_NAME=C                 
-##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-## [11] LC_MEASUREMENT=en_CA.UTF-8 LC_IDENTIFICATION=C       
-## 
 ## attached base packages:
 ## [1] grid      stats     graphics  grDevices utils    
 ## [6] datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] ggplot2_3.1.0     lattice_0.20-38   data.table_1.12.0
-## [4] xtable_1.8-4      knitr_1.22       
+## [1] bookdown_0.9      data.table_1.12.0 dplyr_0.8.0.1    
+## [4] ggplot2_3.1.0     lattice_0.20-38   xtable_1.8-4     
+## [7] here_0.1          pacman_0.5.0      knitr_1.22       
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_1.0.1       magrittr_1.5     tidyselect_0.2.5
 ##  [4] munsell_0.5.0    colorspace_1.4-0 R6_2.4.0        
 ##  [7] rlang_0.3.4      highr_0.8        stringr_1.4.0   
-## [10] plyr_1.8.4       dplyr_0.8.0.1    tools_3.6.0     
-## [13] gtable_0.2.0     xfun_0.6         withr_2.1.2     
-## [16] lazyeval_0.2.1   assertthat_0.2.1 tibble_2.1.1    
+## [10] plyr_1.8.4       tools_3.6.0      gtable_0.2.0    
+## [13] xfun_0.6         withr_2.1.2      lazyeval_0.2.1  
+## [16] rprojroot_1.3-2  assertthat_0.2.1 tibble_2.1.1    
 ## [19] crayon_1.3.4     reshape2_1.4.3   formatR_1.6     
 ## [22] purrr_0.3.2      glue_1.3.1       evaluate_0.13   
 ## [25] labeling_0.3     stringi_1.4.3    compiler_3.6.0  
-## [28] pillar_1.3.1     scales_1.0.0     pkgconfig_2.0.2
+## [28] pillar_1.3.1     scales_1.0.0     backports_1.1.3 
+## [31] pkgconfig_2.0.2
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
