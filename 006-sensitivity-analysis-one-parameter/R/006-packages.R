@@ -1,14 +1,8 @@
 ## ---- required-packages ----
 
-getPckg <- function(pckg) install.packages(pckg, repos = "http://cran.r-project.org")
+if (!require("pacman")) install.packages("pacman")
 
-pckg = try(require(knitr))
-if(!pckg) {
-    cat("Installing 'knitr' from CRAN\n")
-    getPckg("knitr")
-    require(knitr)
-}
-
+pacman::p_load(knitr, here)
 
 
 
