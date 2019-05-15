@@ -7,6 +7,10 @@ CSSC2018.Rproj
 index_cache
 index_files
 011-simulation-report/figure
+
+*_files
+*_cache
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *-concordance.tex
