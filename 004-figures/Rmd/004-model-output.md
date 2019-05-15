@@ -172,9 +172,6 @@ multiplot <- function(..., plotlist = NULL, file, cols = 1, layout = NULL) {
 dat <- read.table(here::here("data", "SOCATT.DAT"), colClasses = c("factor", 
     "factor", "numeric", "numeric", "numeric", "numeric", "numeric", 
     "numeric", "numeric"))
-# dat <- read.table('SOCATT.DAT', colClasses=c('factor',
-# 'factor', 'numeric', 'numeric', 'numeric', 'numeric',
-# 'numeric', 'numeric', 'numeric'))
 colnames(dat) <- c("Districts", "Subject", "Year", "Score", "Party", 
     "SocialClass", "Gender", "Age", "Religion")
 dat$Age_Cur <- dat$Age + dat$Year - 1
@@ -187,7 +184,6 @@ dat$Religion <- factor(dat$Religion, labels = c("Catholic", "Protestant",
 dat$SocialClass <- factor(dat$SocialClass, labels = c("Middle", 
     "Upper", "Lower"))
 DT <- as.data.table(read.table(here::here("data", "SOCATT.DAT")))
-# DT <- as.data.table(read.table('SOCATT.DAT'))
 setnames(DT, c("District", "id", "year", "answers", "party", 
     "ses", "sex", "age", "religion"))
 DT[, `:=`(party = factor(ifelse(party == 1, "Conserv", ifelse(party == 

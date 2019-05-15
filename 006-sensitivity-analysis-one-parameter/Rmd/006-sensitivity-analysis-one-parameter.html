@@ -1637,6 +1637,7 @@ div.tocify {
 </div>
 <div id="proof-of-clt-in-action-with-and" class="section level1">
 <h1><span class="header-section-number">3</span> Proof of CLT in Action with  and </h1>
+<p>La somme de 1 a 10 egale a 1, 2, 3, 4, 5, 6, 7, 8, 9, 10.</p>
 <p><br></p>
 <div id="n-10" class="section level2">
 <h2><span class="header-section-number">3.1</span> <span class="math inline">\(n\)</span> = 10</h2>
@@ -1866,17 +1867,14 @@ opts_knit<span class="op">$</span><span class="kw">set</span>(<span class="dt">e
 
 knitr<span class="op">::</span><span class="kw">read_chunk</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;006-packages.R&quot;</span>))
 knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="dt">path =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;clt.png&quot;</span>))
-src &lt;-<span class="st"> </span><span class="kw">mapply</span>(knitr<span class="op">::</span>knit_expand, <span class="dt">file =</span> <span class="st">&quot;006-CLT-template.Rmd&quot;</span>, 
+src &lt;-<span class="st"> </span><span class="kw">mapply</span>(knitr<span class="op">::</span>knit_expand, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;Rmd&quot;</span>, <span class="st">&quot;006-CLT-template.Rmd&quot;</span>), 
     <span class="dt">i =</span> <span class="kw">seq</span>(<span class="dv">10</span>, <span class="dv">2010</span>, <span class="dt">by =</span> <span class="dv">100</span>))
-<span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)
-getPckg &lt;-<span class="st"> </span><span class="cf">function</span>(pckg) <span class="kw">install.packages</span>(pckg, <span class="dt">repos =</span> <span class="st">&quot;http://cran.r-project.org&quot;</span>)
 
-pckg =<span class="st"> </span><span class="kw">try</span>(<span class="kw">require</span>(knitr))
-<span class="cf">if</span> (<span class="op">!</span>pckg) {
-    <span class="kw">cat</span>(<span class="st">&quot;Installing 'knitr' from CRAN</span><span class="ch">\n</span><span class="st">&quot;</span>)
-    <span class="kw">getPckg</span>(<span class="st">&quot;knitr&quot;</span>)
-    <span class="kw">require</span>(knitr)
-}</code></pre>
+somme &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
+<span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)
+<span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;pacman&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)
+
+pacman<span class="op">::</span><span class="kw">p_load</span>(knitr, here)</code></pre>
 </div>
 <div id="session-information" class="section level1">
 <h1><span class="header-section-number">4</span> Session Information</h1>

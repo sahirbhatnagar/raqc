@@ -11,7 +11,7 @@
 
 <meta name="author" content="by Sahir Bhatnagar" />
 
-<meta name="date" content="2019-05-13" />
+<meta name="date" content="2019-05-14" />
 
 <title>Predictors of Body Fat</title>
 
@@ -1620,7 +1620,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Predictors of Body Fat</h1>
 <h4 class="author">by Sahir Bhatnagar</h4>
-<h4 class="date">2019-05-13</h4>
+<h4 class="date">2019-05-14</h4>
 
 </div>
 
@@ -2371,8 +2371,8 @@ knitr<span class="op">::</span><span class="kw">kable</span>(DT[<span class="dv"
 <span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)
 #########################################################
 <span class="co"># R Source code file for required packages</span>
-<span class="co"># for 001-motivating-example.Rmd. </span>
-<span class="co"># Hosted on github repo 'sahirbhatnagar/CSSC2018'</span>
+<span class="co"># for 001-motivating-example.Rmd/Rnw</span>
+<span class="co"># Hosted on github repo 'sahirbhatnagar/raqc'</span>
 <span class="co"># Author: Sahir Bhatnagar</span>
 <span class="co"># Created: May 31, 2018</span>
 <span class="co"># Updated: </span>
@@ -2445,7 +2445,7 @@ DT &lt;-<span class="st"> </span>data.table<span class="op">::</span><span class
 graphics<span class="op">::</span><span class="kw">pairs</span>(<span class="op">~</span><span class="st"> </span>pbf1 <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>weight <span class="op">+</span><span class="st"> </span>neck <span class="op">+</span><span class="st"> </span>abdomen <span class="op">+</span><span class="st"> </span>forearm <span class="op">+</span><span class="st"> </span>
 <span class="st">                  </span>wrist, <span class="dt">data =</span> DT, <span class="dt">main =</span> <span class="st">&quot;Simple Scatterplot Matrix of Fat data&quot;</span>)
 fit1 &lt;-<span class="st"> </span><span class="kw">lm</span>(pbf1 <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> DT)
-texreg<span class="op">::</span><span class="kw">texreg</span>(fit1, <span class="dt">digits=</span><span class="dv">2</span>, <span class="dt">caption=</span><span class="st">'Multiple Linear Regression of the Body Fat Data'</span>, <span class="dt">label =</span> <span class="st">&quot;tab:results&quot;</span>, 
+<span class="kw">texreg</span>(fit1, <span class="dt">digits=</span><span class="dv">2</span>, <span class="dt">caption=</span><span class="st">'Multiple Linear Regression of the Body Fat Data'</span>, <span class="dt">label =</span> <span class="st">&quot;tab:results&quot;</span>, 
                <span class="dt">booktabs =</span> <span class="ot">TRUE</span>, <span class="dt">dcolumn =</span> <span class="ot">TRUE</span>, <span class="dt">single.row =</span> <span class="ot">TRUE</span>, <span class="dt">use.packages =</span> <span class="ot">FALSE</span>)
 <span class="co"># print results to a table</span>
 sjPlot<span class="op">::</span><span class="kw">tab_model</span>(fit1, <span class="dt">dv.labels =</span> <span class="st">&quot;Percentage Body Fat&quot;</span>)
@@ -2481,10 +2481,7 @@ car<span class="op">::</span><span class="kw">influencePlot</span>(fit2)</code><
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] bookdown_0.9      magrittr_1.5      car_3.0-2        
-##  [4] carData_3.0-2     ggeffects_0.8.0   sjPlot_2.6.2     
-##  [7] data.table_1.12.0 knitr_1.22        here_0.1         
-## [10] pacman_0.5.0     
+## [1] here_0.1     pacman_0.5.0
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] nlme_3.1-139       RColorBrewer_1.1-2 rprojroot_1.3-2   
@@ -2492,30 +2489,33 @@ car<span class="op">::</span><span class="kw">influencePlot</span>(fit2)</code><
 ##  [7] R6_2.4.0           sjlabelled_1.0.16  lazyeval_0.2.1    
 ## [10] colorspace_1.4-0   tidyselect_0.2.5   mnormt_1.5-5      
 ## [13] emmeans_1.3.2      curl_3.3           compiler_3.6.0    
-## [16] sandwich_2.5-0     labeling_0.3       scales_1.0.0      
-## [19] mvtnorm_1.0-8      psych_1.8.12       ggridges_0.5.1    
-## [22] stringr_1.4.0      digest_0.6.18      foreign_0.8-71    
-## [25] minqa_1.2.4        rmarkdown_1.12     rio_0.5.16        
-## [28] stringdist_0.9.5.1 pkgconfig_2.0.2    htmltools_0.3.6   
-## [31] lme4_1.1-20        highr_0.8          pwr_1.2-2         
-## [34] rlang_0.3.4        readxl_1.3.0       generics_0.0.2    
-## [37] zoo_1.8-4          dplyr_0.8.0.1      zip_2.0.0         
-## [40] modeltools_0.2-22  bayesplot_1.6.0    Matrix_1.2-17     
-## [43] Rcpp_1.0.1         munsell_0.5.0      abind_1.4-5       
-## [46] prediction_0.3.6.2 stringi_1.4.3      multcomp_1.4-8    
-## [49] yaml_2.2.0         snakecase_0.9.2    MASS_7.3-51.1     
-## [52] plyr_1.8.4         grid_3.6.0         parallel_3.6.0    
-## [55] sjmisc_2.7.7       forcats_0.4.0      crayon_1.3.4      
-## [58] lattice_0.20-38    haven_2.1.0        splines_3.6.0     
-## [61] sjstats_0.17.3     hms_0.4.2          pillar_1.3.1      
-## [64] estimability_1.3   codetools_0.2-16   stats4_3.6.0      
-## [67] glue_1.3.1         evaluate_0.13      modelr_0.1.4      
-## [70] nloptr_1.2.1       cellranger_1.1.0   gtable_0.2.0      
-## [73] purrr_0.3.2        tidyr_0.8.2        assertthat_0.2.1  
-## [76] ggplot2_3.1.0      xfun_0.6           openxlsx_4.1.0    
-## [79] coin_1.2-2         xtable_1.8-4       broom_0.5.1       
-## [82] coda_0.19-2        survival_2.43-3    tibble_2.1.1      
-## [85] glmmTMB_0.2.3      TH.data_1.0-10</code></pre>
+## [16] sandwich_2.5-0     labeling_0.3       bookdown_0.9      
+## [19] scales_1.0.0       mvtnorm_1.0-8      psych_1.8.12      
+## [22] ggridges_0.5.1     stringr_1.4.0      digest_0.6.18     
+## [25] foreign_0.8-71     minqa_1.2.4        rmarkdown_1.12    
+## [28] rio_0.5.16         stringdist_0.9.5.1 pkgconfig_2.0.2   
+## [31] htmltools_0.3.6    lme4_1.1-20        highr_0.8         
+## [34] pwr_1.2-2          rlang_0.3.4        readxl_1.3.0      
+## [37] generics_0.0.2     zoo_1.8-4          dplyr_0.8.0.1     
+## [40] zip_2.0.0          car_3.0-2          sjPlot_2.6.2      
+## [43] magrittr_1.5       modeltools_0.2-22  bayesplot_1.6.0   
+## [46] Matrix_1.2-17      Rcpp_1.0.1         munsell_0.5.0     
+## [49] abind_1.4-5        prediction_0.3.6.2 stringi_1.4.3     
+## [52] multcomp_1.4-8     yaml_2.2.0         snakecase_0.9.2   
+## [55] carData_3.0-2      MASS_7.3-51.1      plyr_1.8.4        
+## [58] grid_3.6.0         parallel_3.6.0     sjmisc_2.7.7      
+## [61] forcats_0.4.0      crayon_1.3.4       lattice_0.20-38   
+## [64] ggeffects_0.8.0    haven_2.1.0        splines_3.6.0     
+## [67] sjstats_0.17.3     hms_0.4.2          knitr_1.22        
+## [70] pillar_1.3.1       estimability_1.3   codetools_0.2-16  
+## [73] stats4_3.6.0       glue_1.3.1         evaluate_0.13     
+## [76] data.table_1.12.0  modelr_0.1.4       nloptr_1.2.1      
+## [79] cellranger_1.1.0   gtable_0.2.0       purrr_0.3.2       
+## [82] tidyr_0.8.2        assertthat_0.2.1   ggplot2_3.1.0     
+## [85] xfun_0.6           openxlsx_4.1.0     coin_1.2-2        
+## [88] xtable_1.8-4       broom_0.5.1        coda_0.19-2       
+## [91] survival_2.43-3    tibble_2.1.1       glmmTMB_0.2.3     
+## [94] TH.data_1.0-10</code></pre>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>

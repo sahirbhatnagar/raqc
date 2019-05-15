@@ -63,7 +63,10 @@ knitr::include_graphics(path = here::here("clt.png"))
 # Proof of CLT in Action with \texttt{R} and \texttt{knitr::knit\_expand}
 
 ```{r}
-src <- mapply(knitr::knit_expand, file = "006-CLT-template.Rmd", i = seq(10,2010, by=100))
+src <- mapply(knitr::knit_expand, 
+              file = here::here("Rmd","006-CLT-template.Rmd"), 
+              i = seq(10,2010, by=100))
+
 ```
 
 

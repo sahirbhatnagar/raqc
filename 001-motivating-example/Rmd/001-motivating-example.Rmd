@@ -35,7 +35,10 @@ if (!require("pacman")) install.packages("pacman")
 pacman::p_load(here) # needed for filepaths
 
 knitr::read_chunk(here::here("R", "001-packages.R"))
+# knitr::read_chunk("../R/001-analysis.R") # avoid. use here::here instead. more robust across users
+# knitr:::knit_code$get() # to see whats available to call downstream
 knitr::read_chunk(here::here("R", "001-data.R"))
+
 knitr::read_chunk(here::here("R", "001-analysis.R"))
 ```
 

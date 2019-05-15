@@ -46,6 +46,7 @@ Often in statistics, we are required to perform sensitivity analyses to see the 
 
 
 
+La somme de 1 a 10 egale a 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. 
 
 <br>
 
@@ -238,17 +239,14 @@ opts_knit$set(eval.after = "fig.cap")  # for captions to be evaluated after R ob
 
 knitr::read_chunk(here::here("R", "006-packages.R"))
 knitr::include_graphics(path = here::here("clt.png"))
-src <- mapply(knitr::knit_expand, file = "006-CLT-template.Rmd", 
+src <- mapply(knitr::knit_expand, file = here::here("Rmd", "006-CLT-template.Rmd"), 
     i = seq(10, 2010, by = 100))
-print(sessionInfo(), locale = FALSE)
-getPckg <- function(pckg) install.packages(pckg, repos = "http://cran.r-project.org")
 
-pckg = try(require(knitr))
-if (!pckg) {
-    cat("Installing 'knitr' from CRAN\n")
-    getPckg("knitr")
-    require(knitr)
-}
+somme <- 1:10
+print(sessionInfo(), locale = FALSE)
+if (!require("pacman")) install.packages("pacman")
+
+pacman::p_load(knitr, here)
 ```
 
 # Session Information

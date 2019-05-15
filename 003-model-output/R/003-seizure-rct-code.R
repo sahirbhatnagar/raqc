@@ -67,6 +67,8 @@ texreg::htmlreg(list(fit.glm,fit.glmm,fit.gee.ind, fit.gee.unst, fit.gee.ex,fit.
                caption = "Comparing model estimates", single.row = T,
                bold = 0.05)
 
+sjPlot::tab_model(fit.glmm)
+
 
 
 

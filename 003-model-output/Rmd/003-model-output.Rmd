@@ -4,6 +4,7 @@ author: "Randomized Control Trial on Epileptic Seizures"
 date: "`r Sys.Date()`"
 output:
   bookdown::html_document2:
+    keep_md: true
     theme: flatly
     highlight: tango
     fig_caption: yes

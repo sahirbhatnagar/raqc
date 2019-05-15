@@ -9,7 +9,7 @@
 # check if the package is installed, install and load it
 #########################################################
 
-## ----required-packages ----
+## ---- required-packages ----
 
 if (!require("pacman")) install.packages("pacman")
 
